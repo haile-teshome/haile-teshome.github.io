@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Experience — Haile Teshome</title>
-<meta name="description" content="Research and engineering experience, education, talks, and teaching — Haile Teshome." />
+<meta name="description" content="Research and engineering experience, education, and teaching — Haile Teshome." />
 <style>
 /* ============================================================
    Haile Teshome — personal site
@@ -337,8 +337,8 @@ main { padding-top: var(--nav-h); }
 
   .tl-head { display: flex; align-items: center; gap: 11px; margin-bottom: 4px; }
   .tl-head h3 { margin-bottom: 0; }
-  .tl-logo { flex-shrink: 0; height: 26px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 600; font-size: 12px; letter-spacing: 0.01em; color: var(--accent-text); }
-  .tl-logo img { max-height: 26px; max-width: 84px; object-fit: contain; display: block; }
+  .tl-logo { flex-shrink: 0; width: 34px; height: 34px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background: #fff; border: 1px solid rgba(0,0,0,.07); border-radius: 8px; padding: 5px; box-shadow: 0 1px 2px rgba(0,0,0,.06); overflow: hidden; font-family: var(--font-mono); font-weight: 700; font-size: 10px; letter-spacing: 0.01em; color: #2a2a2a; }
+  .tl-logo img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
   .tl-dates { font-family: var(--font-mono); font-size: 12.5px; color: var(--accent-text); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .tl-dates .loc { color: var(--text-3); }
   .tl-dates .loc::before { content: "·"; margin-right: 10px; }
@@ -355,12 +355,13 @@ main { padding-top: var(--nav-h); }
 
   /* education cards */
   .edu-grid { display: grid; gap: 14px; }
-  .edu-card { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--r); padding: 22px 26px; box-shadow: var(--shadow-card); transition: all 0.3s var(--ease); }
+  .edu-card { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: center; background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--r); padding: 22px 26px; box-shadow: var(--shadow-card); transition: all 0.3s var(--ease); }
   .edu-card:hover { border-color: var(--border-2); transform: translateX(4px); box-shadow: var(--shadow-card-h); }
+  .edu-logo { flex-shrink: 0; width: 46px; height: 46px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background: #fff; border: 1px solid rgba(0,0,0,.07); border-radius: 11px; padding: 7px; box-shadow: 0 1px 2px rgba(0,0,0,.06); overflow: hidden; }
+  .edu-logo img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
   .edu-card h3 { font-size: 18px; letter-spacing: -0.02em; margin-bottom: 4px; }
   .edu-card .school { color: var(--text-2); font-size: 14.5px; }
   .edu-card .meta { text-align: right; font-family: var(--font-mono); font-size: 12.5px; color: var(--accent-text); }
-  .edu-card .meta .gpa { display: block; color: var(--text-3); margin-top: 4px; }
 
   /* talks */
   .talk { display: grid; grid-template-columns: 120px 1fr; gap: 24px; padding: 22px 0; border-top: 1px solid var(--border); }
@@ -379,8 +380,8 @@ main { padding-top: var(--nav-h); }
   @media (max-width: 860px) {
     .xp-layout { grid-template-columns: 1fr; gap: 8px; }
     .xp-side { display: none; }
-    .edu-card { grid-template-columns: 1fr; }
-    .edu-card .meta { text-align: left; }
+    .edu-card { grid-template-columns: auto 1fr; }
+    .edu-card .meta { text-align: left; grid-column: 2; }
     .talk { grid-template-columns: 1fr; gap: 6px; }
   }
 </style>
@@ -394,7 +395,6 @@ main { padding-top: var(--nav-h); }
       <a href="index.html">Home</a>
       <a href="experience.html" class="active">Experience</a>
       <a href="research.html">Portfolio</a>
-      <a href="hobbies.html">Hobbies</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="nav-tools">
@@ -418,7 +418,6 @@ main { padding-top: var(--nav-h); }
         <nav class="xp-nav">
           <a href="#experience" class="active">Experience</a>
           <a href="#education">Education</a>
-          <a href="#talks">Talks</a>
           <a href="#teaching">Teaching</a>
         </nav>
         <a class="btn btn-ghost" href="Haile_Teshome_CV.docx" download style="width:100%; justify-content:center;">Download CV <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg></a>
@@ -430,91 +429,78 @@ main { padding-top: var(--nav-h); }
           <div class="tl-section-head"><span class="eyebrow">Work &amp; research</span></div>
 
           <div class="tl-item current reveal">
-            <div class="tl-dates">Nov 2025 — Present <span class="now">Current</span> <span class="loc">Palo Alto, CA</span></div>
-            <div class="tl-head"><div class="tl-logo" data-mono="SHS"><img src="https://icons.duckduckgo.com/ip3/siemens-healthineers.com.ico" alt="Siemens Healthineers" loading="lazy"></div><h3>AI/ML Research Engineer</h3></div>
+            <div class="tl-dates">Jun 2026 — Sep 2026 <span class="now">Current</span> <span class="loc">Palo Alto, CA</span></div>
+            <div class="tl-head"><div class="tl-logo" data-mono="SHS"><img src="assets/logos/siemens.png" alt="Siemens Healthineers" loading="lazy"></div><div class="tl-logo" data-mono="VAR"><img src="assets/logos/varian.png" alt="Varian Medical Systems" loading="lazy"></div><h3>AI/ML Research Engineer Intern</h3></div>
             <div class="tl-org">Siemens Healthineers / Varian Medical Systems</div>
             <ul class="tl-bullets">
-              <li>Building multimodal clinical foundation models that fuse medical imaging with pathology and EHR text for brain and prostate cancer diagnostics.</li>
+              <li>Building agentic AI applications for design quality and regulatory affairs in medical device development.</li>
             </ul>
-            <div class="tl-tags"><span>VLMs</span><span>LoRA / QLoRA</span><span>Mamba</span><span>PyTorch</span></div>
           </div>
 
           <div class="tl-item current reveal">
             <div class="tl-dates">Nov 2025 — Present <span class="now">Current</span> <span class="loc">San Francisco, CA</span></div>
-            <div class="tl-head"><div class="tl-logo" data-mono="UCSF"><img src="https://icons.duckduckgo.com/ip3/ucsf.edu.ico" alt="UCSF" loading="lazy"></div><h3>Graduate ML Researcher</h3></div>
+            <div class="tl-head"><div class="tl-logo" data-mono="UCSF"><img src="assets/logos/ucsf.png" alt="UCSF" loading="lazy"></div><h3>Graduate ML Researcher</h3></div>
             <div class="tl-org">UCSF Bakar Computational Health Sciences Institute <span class="dept">· Multimodal Medical AI &amp; Oncology Research Labs</span></div>
             <div class="tl-adv">Advisors: Dr. Julian Hong · Dr. Madhumita Sushil</div>
             <ul class="tl-bullets">
-              <li>Adapting pretrained foundation models to clinical data distributions; studying tradeoffs in model capacity, data mixture, and domain-adaptation cost.</li>
-              <li>Findings informing two in-submission papers on foundation-model specialization and AI-enabled systematic-review tooling.</li>
+              <li>Developing multimodal clinical foundation models and clinical reinforcement-learning methods in oncology.</li>
             </ul>
-            <div class="tl-tags"><span>Foundation models</span><span>Clinical NLP</span><span>Evaluation</span></div>
           </div>
 
           <div class="tl-item current reveal">
             <div class="tl-dates">2024 — Present <span class="now">Current</span> <span class="loc">San Francisco, CA</span></div>
-            <div class="tl-head"><div class="tl-logo" data-mono="Brown"><img src="https://icons.duckduckgo.com/ip3/brown.edu.ico" alt="Brown University" loading="lazy"></div><h3>ML Research Engineer — Evidence Engine</h3></div>
+            <div class="tl-head"><div class="tl-logo" data-mono="Brown"><img src="assets/logos/brown.png" alt="Brown University" loading="lazy"></div><h3>ML Research Engineer</h3></div>
             <div class="tl-org">UCSF / Brown University</div>
-            <div class="tl-adv">Advisors: Sarah Ackley, PhD · Christopher Seaman, MS</div>
+            <div class="tl-adv">Advisors: Sarah Ackley, PhD · Thomas J. Hoffmann, PhD · Christopher Seaman, MS</div>
             <ul class="tl-bullets">
-              <li>Built a full-stack AI systematic-review platform (Python, Streamlit, LangChain) searching, deduplicating, and screening thousands of papers across PubMed, arXiv, bioRxiv, Semantic Scholar, and CORE.</li>
-              <li>Designed a parallel multi-agent LLM screening pipeline (GPT-4, Claude, Gemini, local Llama) with a human-in-the-loop override layer and auto-generated PRISMA diagrams — first-author publication.</li>
+              <li>Built an AI-assisted systematic-review platform with a multi-agent LLM screening pipeline and human-in-the-loop review.</li>
             </ul>
-            <div class="tl-tags"><span>LangChain</span><span>Multi-agent</span><span>Streamlit</span><span>PRISMA</span></div>
           </div>
 
           <div class="tl-item reveal">
             <div class="tl-dates">May 2025 — Aug 2025 <span class="loc">San Francisco, CA</span></div>
-            <div class="tl-head"><div class="tl-logo" data-mono="GNE"><img src="https://icons.duckduckgo.com/ip3/gene.com.ico" alt="Genentech" loading="lazy"></div><h3>AI/ML Engineer Intern</h3></div>
+            <div class="tl-head"><div class="tl-logo" data-mono="GNE"><img src="assets/logos/genentech.png" alt="Genentech" loading="lazy"></div><h3>AI/ML Engineer Intern</h3></div>
             <div class="tl-org">Genentech <span class="dept">· gRED Clinical Development Informatics, Digital Transformation</span></div>
             <ul class="tl-bullets">
-              <li>Designed and deployed a multi-agent LLM system (LangChain, MCP) automating protocol quality checks, experimental-design review, and data validation for clinical-trial workflows.</li>
-              <li>Engineered a production SaaS platform (FastAPI, Docker, PostgreSQL, Vue/React) with an end-to-end ML observability pipeline (MLFlow, Prometheus, Grafana).</li>
+              <li>Designed and deployed a multi-agent LLM system for clinical trial protocol workflows — automating protocol quality checks, experimental design review, and data validation.</li>
             </ul>
-            <div class="tl-tags"><span>LangChain</span><span>MCP</span><span>FastAPI</span><span>MLOps</span></div>
           </div>
 
           <div class="tl-item reveal">
             <div class="tl-dates">Jul 2022 — May 2025 <span class="loc">Thousand Oaks, CA · Remote</span></div>
-            <div class="tl-head"><div class="tl-logo" data-mono="AMGN"><img src="https://icons.duckduckgo.com/ip3/amgen.com.ico" alt="Amgen" loading="lazy"></div><h3>Software / Machine Learning Engineer</h3></div>
+            <div class="tl-head"><div class="tl-logo" data-mono="AMGN"><img src="assets/logos/amgen.png" alt="Amgen" loading="lazy"></div><h3>Software / Machine Learning Engineer</h3></div>
             <div class="tl-org">Amgen <span class="dept">· Decision Sciences &amp; Generative AI Teams</span></div>
             <ul class="tl-bullets">
-              <li>Co-architected a production drug-portfolio recommendation system (Databricks, Spark, AWS) with automated CI/CD, reducing deployment failures by 60%.</li>
-              <li>Built RAG-based internal tooling and led GenAI adoption — fine-tuned and deployed custom tools, ran workshops, and authored responsible-AI best practices.</li>
+              <li>Built production ML and generative-AI systems and led internal GenAI adoption and responsible-AI best practices.</li>
             </ul>
-            <div class="tl-tags"><span>Databricks</span><span>Spark</span><span>RAG</span><span>GenAI</span></div>
           </div>
 
           <div class="tl-item reveal">
             <div class="tl-dates">Jun 2022 — Jul 2022 <span class="loc">Boston, MA</span></div>
-            <div class="tl-head"><div class="tl-logo" data-mono="HSPH"><img src="https://icons.duckduckgo.com/ip3/harvard.edu.ico" alt="Harvard" loading="lazy"></div><h3>Research Engineer</h3></div>
+            <div class="tl-head"><div class="tl-logo" data-mono="HSPH"><img src="assets/logos/harvard.png" alt="Harvard" loading="lazy"></div><h3>Research Engineer</h3></div>
             <div class="tl-org">Harvard T.H. Chan School of Public Health <span class="dept">· Global Health &amp; Population</span></div>
             <ul class="tl-bullets">
-              <li>Refined COVID-19 infection-rate simulations in R, customizing statistical packages and reducing runtime by 24%; built dynamic D3.js visualizations for stakeholders and publications.</li>
+              <li>Improved COVID-19 epidemiological simulations and built interactive visualizations for researchers.</li>
             </ul>
-            <div class="tl-tags"><span>R</span><span>D3.js</span><span>Epidemiology</span></div>
           </div>
 
           <div class="tl-item reveal">
             <div class="tl-dates">Aug 2018 — Jul 2019 <span class="loc">Los Angeles, CA</span></div>
-            <div class="tl-head"><div class="tl-logo" data-mono="UCLA"><img src="https://icons.duckduckgo.com/ip3/ucla.edu.ico" alt="UCLA" loading="lazy"></div><h3>Machine Learning / Data Science Intern</h3></div>
+            <div class="tl-head"><div class="tl-logo" data-mono="UCLA"><img src="assets/logos/ucla.png" alt="UCLA" loading="lazy"></div><h3>Machine Learning / Data Science Intern</h3></div>
             <div class="tl-org">UCLA Health &amp; David Geffen School of Medicine <span class="dept">· Anesthesiology, Bioinformatics &amp; Health Analytics</span></div>
             <ul class="tl-bullets">
-              <li>Developed end-to-end ETL pipelines and in-database ML models (SQL, Python, R) and built Tableau dashboards translating clinical data into actionable visualizations.</li>
+              <li>Built data pipelines, in-database ML models, and clinical dashboards to turn health data into actionable insights.</li>
             </ul>
-            <div class="tl-tags"><span>SQL</span><span>Python</span><span>Tableau</span></div>
           </div>
 
           <div class="tl-item reveal">
             <div class="tl-dates">Sep 2016 — Sep 2019 <span class="loc">Los Angeles, CA</span></div>
-            <div class="tl-head"><div class="tl-logo" data-mono="UCLA"><img src="https://icons.duckduckgo.com/ip3/ucla.edu.ico" alt="UCLA" loading="lazy"></div><h3>Undergraduate Researcher</h3></div>
+            <div class="tl-head"><div class="tl-logo" data-mono="UCLA"><img src="assets/logos/ucla.png" alt="UCLA" loading="lazy"></div><h3>Undergraduate Researcher</h3></div>
             <div class="tl-org">UCLA Bio &amp; Nano Photonics Laboratory</div>
             <div class="tl-adv">Advisors: Dr. Aydogan Ozcan · Dr. Hyou-Arm Joung</div>
             <ul class="tl-bullets">
-              <li>Engineered biomedical devices for Lyme disease detection and cell-motility analysis using multiplexed paper-based sensors and photonics; built a MATLAB image-analysis algorithm with 97% accuracy.</li>
-              <li>Created a deep-learning diagnostic for Lyme disease with 96.5% specificity and 85.7% sensitivity.</li>
+              <li>Developed paper-based biosensors and deep-learning image-analysis methods for disease diagnostics.</li>
             </ul>
-            <div class="tl-tags"><span>Deep learning</span><span>MATLAB</span><span>Biosensing</span></div>
           </div>
         </div>
 
@@ -523,13 +509,15 @@ main { padding-top: var(--nav-h); }
           <div class="tl-section-head"><span class="eyebrow">Education</span></div>
           <div class="edu-grid">
             <div class="edu-card reveal">
+              <div class="edu-logo"><img src="assets/logos/ucsf.png" alt="UCSF" loading="lazy"></div>
               <div>
                 <h3>M.S. Health Data Science</h3>
-                <div class="school">University of California, San Francisco (UCSF)</div>
+                <div class="school">University of California, San Francisco</div>
               </div>
-              <div class="meta">Expected May 2026</div>
+              <div class="meta">2026</div>
             </div>
             <div class="edu-card reveal">
+              <div class="edu-logo"><img src="assets/logos/stanford.png" alt="Stanford University" loading="lazy"></div>
               <div>
                 <h3>UCSF–Stanford Exchange Scholar</h3>
                 <div class="school">Stanford University — Foundation Models in Healthcare · Deep RL</div>
@@ -537,32 +525,12 @@ main { padding-top: var(--nav-h); }
               <div class="meta">2025 – 2026</div>
             </div>
             <div class="edu-card reveal">
+              <div class="edu-logo"><img src="assets/logos/ucla.png" alt="UCLA" loading="lazy"></div>
               <div>
                 <h3>B.S. Atmospheric &amp; Oceanic Science</h3>
-                <div class="school">University of California, Los Angeles (UCLA)</div>
+                <div class="school">University of California, Los Angeles</div>
               </div>
               <div class="meta">2021</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- TALKS -->
-        <div class="tl-section" id="talks" style="margin-top:64px;">
-          <div class="tl-section-head"><span class="eyebrow">Talks &amp; presentations</span></div>
-          <div class="talks-list">
-            <div class="talk reveal">
-              <div class="talk-when">2025</div>
-              <div>
-                <h3>Evidence Engine: Human-in-the-Loop AI for Rapid Systematic Reviews</h3>
-                <p>AMIA Annual Symposium 2025 — American Medical Informatics Association.</p>
-              </div>
-            </div>
-            <div class="talk reveal">
-              <div class="talk-when">2023 – 2025</div>
-              <div>
-                <h3>Responsible &amp; Effective Generative AI — internal workshop series</h3>
-                <p>Amgen Generative AI team — technical workshops and best-practice guidance on LLM/GenAI adoption.</p>
-              </div>
             </div>
           </div>
         </div>
@@ -665,7 +633,6 @@ main { padding-top: var(--nav-h); }
     { t: 'Home', d: 'Intro & news', u: 'index.html', g: 'Pages', ic: 'home' },
     { t: 'Portfolio', d: 'Papers & projects', u: 'research.html', g: 'Pages', ic: 'doc' },
     { t: 'Experience', d: 'Roles, talks & teaching', u: 'experience.html', g: 'Pages', ic: 'brief' },
-    { t: 'Hobbies', d: 'Life outside research', u: 'hobbies.html', g: 'Pages', ic: 'pen' },
     { t: 'Contact', d: 'Get in touch', u: 'contact.html', g: 'Pages', ic: 'mail' },
     { t: 'Email Haile', d: 'haile.teshome@ucsf.edu', u: 'mailto:haile.teshome@ucsf.edu', g: 'Connect', ic: 'mail' },
     { t: 'LinkedIn', d: 'in/haile-teshome', u: 'https://www.linkedin.com/in/haile-teshome', g: 'Connect', ic: 'link' },

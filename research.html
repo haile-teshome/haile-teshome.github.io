@@ -321,40 +321,86 @@ main { padding-top: var(--nav-h); }
   .sort-btn svg { width: 14px; height: 14px; transition: transform 0.3s var(--ease); }
   .sort-btn.asc svg { transform: rotate(180deg); }
 
-  .pub-list { display: flex; flex-direction: column; }
-  .pub {
-    display: grid; grid-template-columns: 168px 92px 1fr; gap: 30px;
-    padding: 34px 0; border-bottom: 1px solid var(--border);
-    transition: opacity 0.35s var(--ease);
-  }
+  .pub-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 400px)); justify-content: center; gap: 24px; align-items: stretch; }
+  .pub { transition: opacity 0.35s var(--ease); }
   .pub.hide { display: none; }
-  .pub-thumb { width: 168px; height: 116px; border-radius: 11px; border: 1px solid var(--border); align-self: start; overflow: hidden; display: grid; place-items: center; background: repeating-linear-gradient(135deg, var(--bg-3) 0 2px, transparent 2px 11px), var(--bg-3); }
-  .pub-thumb span { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); border: 1px dashed var(--border-2); border-radius: 6px; padding: 4px 9px; background: color-mix(in oklab, var(--bg) 62%, transparent); }
-  .pub-year { font-family: var(--font-mono); font-size: 15px; color: var(--accent-text); padding-top: 4px; }
-  .pub-year small { display: block; color: var(--text-3); font-size: 11.5px; margin-top: 6px; letter-spacing: 0.04em; }
-  .pub-main h3 { font-size: clamp(19px, 2.1vw, 24px); letter-spacing: -0.02em; line-height: 1.28; margin-bottom: 12px; }
-  .pub-authors { color: var(--text-2); font-size: 15px; margin-bottom: 14px; }
+  .pub-card { display: flex; flex-direction: column; height: 100%; background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow-card); transition: transform 0.3s var(--ease), border-color 0.3s, box-shadow 0.3s; color: inherit; }
+  .pub-card:hover { transform: translateY(-4px); border-color: var(--border-2); box-shadow: var(--shadow-card-h); }
+  .pub-thumb { position: relative; width: 100%; aspect-ratio: 16 / 10; overflow: hidden; background: #fff; border-bottom: 1px solid var(--border); }
+  .pub-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s var(--ease); }
+  .pub-card:hover .pub-thumb img { transform: scale(1.05); }
+  /* Thumbnail slideshow with manual arrows for project cards */
+  .pub-thumb .thumb-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.45s var(--ease), transform 0.5s var(--ease); }
+  .pub-thumb .thumb-slide.active { opacity: 1; }
+  .thumb-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border-radius: 50%; background: color-mix(in oklab, var(--bg) 80%, transparent); backdrop-filter: saturate(1.4) blur(6px); -webkit-backdrop-filter: saturate(1.4) blur(6px); border: 1px solid var(--border); color: var(--text); display: grid; place-items: center; cursor: pointer; z-index: 4; opacity: 1; transition: opacity 0.2s var(--ease), background 0.2s var(--ease), transform 0.2s var(--ease); box-shadow: 0 2px 6px rgba(0,0,0,.14); }
+  .pub-thumb:hover .thumb-nav { opacity: 1; }
+  .thumb-nav:hover { background: var(--bg); transform: translateY(-50%) scale(1.09); }
+  .thumb-nav svg { width: 16px; height: 16px; }
+  .thumb-prev { left: 10px; }
+  .thumb-next { right: 10px; }
+  .thumb-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; z-index: 4; padding: 5px 9px; border-radius: 999px; background: color-mix(in oklab, var(--bg) 55%, transparent); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+  .thumb-dots i { width: 6px; height: 6px; border-radius: 50%; background: color-mix(in oklab, var(--text) 32%, transparent); transition: all 0.3s var(--ease); cursor: pointer; }
+  .thumb-dots i.active { background: var(--accent); transform: scale(1.3); }
+  .pub-arrow { position: absolute; top: 12px; right: 12px; width: 30px; height: 30px; border-radius: 50%; background: color-mix(in oklab, var(--bg) 82%, transparent); backdrop-filter: saturate(1.4) blur(6px); -webkit-backdrop-filter: saturate(1.4) blur(6px); border: 1px solid var(--border); display: grid; place-items: center; color: var(--text-2); transition: all 0.25s var(--ease); }
+  .pub-card:hover .pub-arrow { background: var(--accent); color: oklch(0.99 0.01 80); border-color: var(--accent); transform: translate(2px, -2px); }
+  .pub-arrow svg { width: 14px; height: 14px; }
+  .pub-ribbon { position: absolute; z-index: 3; top: 30px; left: -52px; transform: rotate(-45deg); background: linear-gradient(180deg, #f8e08c 0%, #e8c452 45%, #c89a2c 100%); color: #4a3705; font-family: var(--font-mono); font-weight: 700; font-size: 8px; letter-spacing: 0.01em; text-transform: uppercase; text-align: center; padding: 5px 54px; box-shadow: 0 2px 5px rgba(0,0,0,.30); border-top: 1px solid rgba(255,255,255,.55); }
+  .pub-body { display: flex; flex-direction: column; flex: 1; padding: 20px 22px 22px; }
+  .pub-year { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent-text); margin-bottom: 11px; }
+  .pub-year small { color: var(--text-3); font-size: 12px; }
+  .pub-main { display: flex; flex-direction: column; flex: 1; }
+  .pub-main h3 { font-size: 18px; letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 10px; }
+  .pub-authors { color: var(--text-2); font-size: 13px; line-height: 1.5; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .pub-authors .me { color: var(--text); font-weight: 600; border-bottom: 1.5px solid var(--accent); }
-  .pub-venue { display: inline-flex; align-items: center; gap: 9px; font-size: 14.5px; color: var(--text); margin-bottom: 16px; }
-  .pub-venue .vbadge { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--accent-text); background: var(--accent-soft); border-radius: 6px; padding: 3px 9px; }
-  .pub-venue em { font-style: italic; color: var(--text-2); }
-  .pub-meta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 4px; }
-  .pub-pill { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-2); border: 1px solid var(--border); border-radius: 7px; padding: 4px 9px; }
-  .pub-pill.first { color: var(--accent-text); border-color: color-mix(in oklab, var(--accent) 40%, var(--border)); }
-  .pub-links { display: flex; gap: 14px; margin-left: auto; }
-  .pub-links a { font-size: 13.5px; font-weight: 500; color: var(--text-2); display: inline-flex; align-items: center; gap: 5px; transition: color 0.2s; }
-  .pub-links a:hover { color: var(--accent-text); }
-  .pub-links a svg { width: 13px; height: 13px; }
+  .pub-meta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: auto; }
+  .pub-pill { font-family: var(--font-mono); font-size: 11px; color: var(--text-2); border: 1px solid var(--border); border-radius: 7px; padding: 3px 8px; }
 
   .pub-count { font-family: var(--font-mono); font-size: 13px; color: var(--text-3); margin-bottom: 20px; }
 
-  @media (max-width: 720px) {
-    .pub { grid-template-columns: 1fr; gap: 14px; }
-    .pub-thumb { width: 100%; height: 150px; }
-    .pub-year { display: flex; gap: 12px; align-items: baseline; padding-top: 0; }
-    .pub-year small { margin-top: 0; }
-    .pub-links { margin-left: 0; }
-  }
+  @media (max-width: 560px) { .pub-list { grid-template-columns: 1fr; } }
+
+  /* publication preview modal */
+  .pub-modal { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 24px; }
+  .pub-modal.open { display: flex; }
+  .pub-modal-backdrop { position: absolute; inset: 0; background: color-mix(in oklab, var(--bg) 24%, rgba(0,0,0,0.6)); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); animation: pmFade 0.25s var(--ease); }
+  .pub-modal-dialog { position: relative; z-index: 1; width: min(720px, 100%); max-height: 88vh; overflow-y: auto; background: var(--bg); border: 1px solid var(--border); border-radius: 18px; box-shadow: var(--shadow-lg); animation: pmPop 0.3s var(--ease); }
+  .pub-modal-figure { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #fff; border-bottom: 1px solid var(--border); border-radius: 18px 18px 0 0; overflow: hidden; }
+  .pub-modal-figure img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .pm-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 50%; background: color-mix(in oklab, var(--bg) 78%, transparent); backdrop-filter: saturate(1.4) blur(6px); -webkit-backdrop-filter: saturate(1.4) blur(6px); border: 1px solid var(--border); color: var(--text); display: grid; place-items: center; cursor: pointer; transition: all 0.2s var(--ease); z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+  .pm-nav:hover { background: var(--bg); transform: translateY(-50%) scale(1.08); }
+  .pm-nav svg { width: 19px; height: 19px; }
+  .pm-prev { left: 12px; }
+  .pm-next { right: 12px; }
+  .pm-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 2; padding: 6px 10px; border-radius: 999px; background: color-mix(in oklab, var(--bg) 62%, transparent); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .pm-dot { width: 7px; height: 7px; border-radius: 50%; border: none; padding: 0; background: color-mix(in oklab, var(--text) 30%, transparent); cursor: pointer; transition: all 0.2s var(--ease); }
+  .pm-dot.active { background: var(--accent); transform: scale(1.25); }
+  .pub-modal-figure.single .pm-nav, .pub-modal-figure.single .pm-dots { display: none; }
+  .pub-modal-close { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 50%; background: color-mix(in oklab, var(--bg) 72%, transparent); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid var(--border); color: var(--text); display: grid; place-items: center; cursor: pointer; transition: all 0.25s var(--ease); }
+  .pub-modal-close:hover { background: var(--bg-3); transform: rotate(90deg); }
+  .pub-modal-close svg { width: 16px; height: 16px; }
+  .pub-modal-body { padding: 26px 30px 30px; }
+  .pub-modal-meta { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent-text); margin-bottom: 12px; }
+  .pub-modal-body h2 { font-size: 22px; line-height: 1.26; letter-spacing: -0.02em; margin-bottom: 14px; }
+  .pub-modal-authors { color: var(--text-2); font-size: 14px; line-height: 1.55; margin-bottom: 18px; }
+  .pub-modal-authors .me { color: var(--text); font-weight: 600; border-bottom: 1.5px solid var(--accent); }
+  .pub-modal-abstract { color: var(--text); font-size: 15.5px; line-height: 1.7; margin: 0 0 24px; }
+  .pub-modal-sub { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; }
+  .pub-outputs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .pub-output { display: flex; align-items: center; gap: 14px; padding: 13px 15px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 11px; transition: border-color 0.2s, background 0.2s; }
+  .pub-output:hover { border-color: var(--border-2); background: var(--bg-3); }
+  .ptype { flex: none; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.03em; text-transform: uppercase; padding: 4px 9px; border-radius: 6px; color: var(--text-2); background: var(--bg-3); }
+  .ptype-award { color: var(--accent-text); background: var(--accent-soft); }
+  .ptype-journal { color: var(--accent-text); background: var(--accent-soft); }
+  .ptype-conference { color: var(--text-2); background: var(--bg-3); border: 1px solid var(--border); }
+  .ptype-preprint { color: var(--text-3); background: transparent; border: 1px dashed var(--border-2); }
+  .pub-output-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+  .pub-output-venue { font-size: 14px; color: var(--text); font-style: italic; }
+  .pub-output-year { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-3); }
+  .pub-output-link { flex: none; display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 500; color: var(--accent-text); }
+  .pub-output-link svg { width: 13px; height: 13px; }
+  .pub-output-link:hover { color: var(--accent-h); }
+  @keyframes pmFade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes pmPop { from { opacity: 0; transform: translateY(12px) scale(0.985); } to { opacity: 1; transform: none; } }
 </style>
 </head>
 <body>
@@ -366,7 +412,6 @@ main { padding-top: var(--nav-h); }
       <a href="index.html">Home</a>
       <a href="experience.html">Experience</a>
       <a href="research.html" class="active">Portfolio</a>
-      <a href="hobbies.html">Hobbies</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="nav-tools">
@@ -388,7 +433,6 @@ main { padding-top: var(--nav-h); }
         <span class="lbl">Filter</span>
         <button class="fchip active" data-filter="research">Research</button>
         <button class="fchip" data-filter="applications">Applications</button>
-        <button class="fchip" data-filter="projects">Projects</button>
       </div>
       <div class="pub-sort">
         <span class="lbl">Sort</span>
@@ -399,63 +443,107 @@ main { padding-top: var(--nav-h); }
       </div>
     </div>
 
-    <div class="pub-count" id="pubCount">3 publications</div>
-
     <div class="pub-list" id="pubList">
 
 
-      <!-- 3 ACS Nano -->
-      <article class="pub reveal" id="acs-nano" data-year="2020" data-type="research" data-sortyear="2020.2">
-        <div class="pub-thumb" aria-hidden="true"><span>figure · paper-based assay</span></div>
-        <div class="pub-year">2020<small>ACS NANO</small></div>
-        <div class="pub-main">
-          <h3>Point-of-Care Serodiagnostic Test for Early-Stage Lyme Disease Using a Multiplexed Paper-Based Immunoassay and Machine Learning</h3>
-          <div class="pub-authors">Joung HA, et al. (incl. <span class="me">Teshome H</span>)</div>
-          <div class="pub-venue"><span class="vbadge">JOURNAL</span> <em>ACS Nano</em>, 2020</div>
-          <div class="pub-meta-row">
-            <span class="pub-pill">Published</span>
-            <span class="pub-pill">Biosensing</span>
-            <span class="pub-pill">Machine learning</span>
+      <!-- PROJECT: Lyme diagnostic (journal + conference) -->
+      <article class="pub reveal" id="lyme-dx" data-year="2020" data-type="research" data-sortyear="2020.2" data-abstract="Standard two-tier serology for Lyme disease is under 50% sensitive in early-stage infection, costs over $400, and takes more than a day. This work presents a rapid, low-cost point-of-care alternative: a paper-based multiplexed vertical flow assay (xVFA) that measures antibodies against seven Borrelia antigens and a synthetic peptide on a single sensing membrane, imaged by a mobile-phone reader. A deep neural network computationally selects the most informative antigen subset and infers the diagnosis. In fully-blinded testing across 96 serum samples it achieved an AUC of 0.950 with 90.5% sensitivity and 87.0% specificity; with batch-specific standardization and threshold tuning, specificity rose to 96.3% (AUC 0.963). Each test costs about $0.42 and runs in 15 minutes.">
+        <a class="pub-card" href="https://doi.org/10.1021/acsnano.9b08151" target="_blank" rel="noopener">
+          <div class="pub-thumb"><img src="assets/figures/paper-assay.jpg" alt="Graphical abstract: multiplexed paper-based immunoassay with machine-learning classification for Lyme disease" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+          <div class="pub-body">
+            <div class="pub-year">2020</div>
+            <div class="pub-main">
+              <h3>Early-Stage Lyme Disease Diagnosis with a Multiplexed Paper-Based Assay &amp; Machine Learning</h3>
+              <div class="pub-authors">Joung HA, Ballard ZS, Wu J, Tseng DK, <span class="me">Teshome H</span>, Zhang L, Horn EJ, Arnaboldi PM, Dattwyler RJ, Garner OB, Di Carlo D, Ozcan A</div>
+              <div class="pub-meta-row">
+                <span class="pub-pill">ACS Nano</span>
+                <span class="pub-pill">SPIE</span>
+              </div>
+            </div>
           </div>
-        </div>
+        </a>
       </article>
 
-      <!-- 4 SPIE -->
-      <article class="pub reveal" data-year="2020" data-type="research" data-sortyear="2020.1">
-        <div class="pub-thumb" aria-hidden="true"><span>figure · DL diagnostic</span></div>
-        <div class="pub-year">2020<small>SPIE</small></div>
-        <div class="pub-main">
-          <h3>Deep Learning-Based Point-of-Care Diagnostic Test for Lyme Disease</h3>
-          <div class="pub-authors">Ballard ZS, <span class="me">Teshome H</span>, et al.</div>
-          <div class="pub-venue"><span class="vbadge">PROCEEDINGS</span> <em>SPIE Emerging Topics in Artificial Intelligence</em>, 2020</div>
-          <div class="pub-meta-row">
-            <span class="pub-pill">Published</span>
-            <span class="pub-pill">Deep learning</span>
-            <span class="pub-pill">Diagnostics</span>
+      <!-- PROJECT: Vertical flow assay platform (journal) -->
+      <article class="pub reveal" id="vfa-platform" data-year="2019" data-type="research" data-sortyear="2019" data-abstract="A multiplexed point-of-care immunoassay built by vertically stacking functional paper layers (xVFA), where gold-nanoparticle colorimetric signals are captured on a spatially-multiplexed sensing membrane patterned with distinct antigens. A vertical flow diffuser and an asymmetric spreading membrane were engineered to make flow uniform across the membrane, cutting signal variation from 94% to about 13%. The assay completes in roughly 20 minutes, is read by a low-cost mobile-phone reader with server-side image analysis, and was demonstrated by quantifying Lyme-specific antibodies (anti-OspC, anti-BmpA, anti-P41) in human sera — establishing the scalable xVFA platform at about 27¢ per test.">
+        <a class="pub-card" href="https://doi.org/10.1039/c9lc00011a" target="_blank" rel="noopener">
+          <div class="pub-thumb"><img src="assets/figures/vfa-device.jpg" alt="Paper-based multiplexed vertical flow assay cassettes with a portable mobile-phone reader" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+          <div class="pub-body">
+            <div class="pub-year">2019 – 2020</div>
+            <div class="pub-main">
+              <h3>Multiplexed Paper-Based Vertical Flow Assay Platform for Point-of-Care Testing</h3>
+              <div class="pub-authors">Joung HA, Ballard ZS, Ma A, Tseng DK, <span class="me">Teshome H</span>, Burakowski S, Garner OB, Di Carlo D, Ozcan A</div>
+              <div class="pub-meta-row">
+                <span class="pub-pill">Lab on a Chip</span>
+                <span class="pub-pill">OSA Biophotonics</span>
+              </div>
+            </div>
           </div>
-        </div>
+        </a>
       </article>
 
-      <!-- 5 Lab on a Chip -->
-      <article class="pub reveal" data-year="2019" data-type="research" data-sortyear="2019">
-        <div class="pub-thumb" aria-hidden="true"><span>figure · vertical flow assay</span></div>
-        <div class="pub-year">2019<small>LAB CHIP</small></div>
-        <div class="pub-main">
-          <h3>Paper-Based Multiplexed Vertical Flow Assay for Point-of-Care Testing</h3>
-          <div class="pub-authors">Joung HA, et al. (incl. <span class="me">Teshome H</span>)</div>
-          <div class="pub-venue"><span class="vbadge">JOURNAL</span> <em>Lab on a Chip</em>, 2019</div>
-          <div class="pub-meta-row">
-            <span class="pub-pill">Published</span>
-            <span class="pub-pill">Point-of-care</span>
-            <span class="pub-pill">Assay design</span>
+      <!-- PROJECT: MIFY -->
+      <article class="pub reveal" id="mify" data-year="2025" data-type="applications projects" data-sortyear="2025.5" data-abstract="MIFY (Medical Insights For You) is an AI-powered patient-recruitment platform for clinical trials, where over 80% of trials miss their enrollment deadlines because matching is slow and manual. It combines LLM-based summarization of dense Informed Consent Forms, dynamic AI prescreening questionnaires with eligibility scoring, and personalized trial recommendations — with a voice-enabled prescreening agent. Built at CalHacks 12.0 (Regeneron Runner-Up) using Claude for document parsing, a Python/Flask backend, a React frontend, and Vapi for voice, it processed sample consent forms in under 15 seconds — a task that usually takes hours.">
+        <a class="pub-card" href="https://devpost.com/software/mify" target="_blank" rel="noopener">
+          <div class="pub-thumb"><img src="assets/figures/mify.jpg?v=2" alt="MIFY — Medical Insights For You landing page" loading="lazy"><span class="pub-ribbon">Regeneron Runner-Up Prize</span><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+          <div class="pub-body">
+            <div class="pub-year">2025 <small>· CalHacks 12.0</small></div>
+            <div class="pub-main">
+              <h3>MIFY</h3>
+              <div class="pub-authors">LLM summarization of consent forms, AI prescreening, and voice-enabled patient matching for clinical trials.</div>
+              <div class="pub-meta-row">
+                <span class="pub-pill">Claude</span>
+                <span class="pub-pill">Voice AI</span>
+                <span class="pub-pill">Regeneron Prize</span>
+              </div>
+            </div>
           </div>
-        </div>
+        </a>
+      </article>
+
+      <!-- PROJECT: Marvelous Questions -->
+      <article class="pub reveal" id="marvelous-questions" data-year="2016" data-type="applications projects" data-sortyear="2016.1" data-abstract="Marvelous Questions is a natural-language question-answering app built over the Marvel Comics API: ask a question in plain English and the system interprets it, queries the API, and returns the answer. An early hackathon project exploring natural-language interfaces to structured data, built with Christian Warloe and Prathyush Katukojwala.">
+        <a class="pub-card" href="#marvelous-questions">
+          <div class="pub-thumb"><img src="assets/figures/marvelous-questions.jpg?v=2" alt="Marvelous Questions — natural-language Q&amp;A over the Marvel API" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+          <div class="pub-body">
+            <div class="pub-year">2016 <small>· LA Hacks</small></div>
+            <div class="pub-main">
+              <h3>Marvelous Questions</h3>
+              <div class="pub-authors">Natural-language Q&amp;A — ask in plain English and it answers via the Marvel API.</div>
+              <div class="pub-meta-row">
+                <span class="pub-pill">NLP</span>
+                <span class="pub-pill">API integration</span>
+              </div>
+            </div>
+          </div>
+        </a>
       </article>
 
     </div>
   </div>
 </section>
 </main>
+
+<div class="pub-modal" id="pubModal" aria-hidden="true">
+  <div class="pub-modal-backdrop" data-close></div>
+  <div class="pub-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="pmTitle">
+    <button class="pub-modal-close" data-close aria-label="Close preview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="pub-modal-figure" id="pmFigure">
+      <img id="pmImg" src="" alt="">
+      <button class="pm-nav pm-prev" id="pmPrev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button class="pm-nav pm-next" id="pmNext" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      <div class="pm-dots" id="pmDots"></div>
+    </div>
+    <div class="pub-modal-body">
+      <div class="pub-modal-meta" id="pmMeta"></div>
+      <h2 id="pmTitle"></h2>
+      <div class="pub-modal-authors" id="pmAuthors"></div>
+      <p class="pub-modal-abstract" id="pmAbstract"></p>
+      <div class="pub-modal-sub" id="pmSubHead">Publications</div>
+      <ul class="pub-outputs" id="pmOutputs"></ul>
+    </div>
+  </div>
+</div>
 
 <footer class="footer">
   <div class="wrap">
@@ -469,18 +557,34 @@ main { padding-top: var(--nav-h); }
 <script>
   const list = document.getElementById('pubList');
   const pubs = Array.from(list.children);
-  const countEl = document.getElementById('pubCount');
   let curFilter = 'research', desc = true;
 
+  /* Each project groups its journal / conference / preprint outputs */
+  const PROJECTS = {
+    'lyme-dx': [
+      { type: 'Journal',    venue: 'ACS Nano, 14(1):229–240',                              year: 2020, doi: '10.1021/acsnano.9b08151' },
+      { type: 'Conference', venue: 'Proc. SPIE 11469 — Emerging Topics in Artificial Intelligence', year: 2020, doi: '10.1117/12.2567459' },
+    ],
+    'vfa-platform': [
+      { type: 'Journal',    venue: 'Lab on a Chip, 19(6):1027–1034',              year: 2019, doi: '10.1039/c9lc00011a' },
+      { type: 'Conference', venue: 'OSA Biophotonics Congress — Biomedical Optics', year: 2020, doi: '10.1364/translational.2020.tth4b.5' },
+    ],
+    'mify': [
+      { type: 'Devpost', venue: 'MIFY on Devpost — CalHacks 12.0', year: 2025, url: 'https://devpost.com/software/mify' },
+      { type: 'Award',   venue: 'Regeneron Runner-Up · CalHacks 12.0', year: 2025 },
+    ],
+    'marvelous-questions': [
+      { type: 'Devpost', venue: 'Marvelous Questions on Devpost', year: 2016, url: 'https://devpost.com/software/marvelous-questions' },
+    ],
+  };
+
   function apply() {
-    let visible = 0;
     pubs.forEach(p => {
       const t = p.dataset.type || '';
       const show = curFilter === 'all' || t.split(' ').includes(curFilter);
       p.classList.toggle('hide', !show);
-      if (show) visible++;
+      if (show) p.classList.add('in');
     });
-    countEl.textContent = visible + (visible === 1 ? ' publication' : ' publications');
   }
   function sort() {
     const ordered = [...pubs].sort((a, b) => {
@@ -502,7 +606,129 @@ main { padding-top: var(--nav-h); }
     document.getElementById('sortLabel').textContent = desc ? 'Newest first' : 'Oldest first';
     sort();
   });
+  apply();
   sort();
+
+  /* ---------- Publication preview modal ---------- */
+  /* Extra screenshots shown as a carousel in the preview modal */
+  const GALLERIES = {
+    'mify': [
+      'assets/figures/gallery/mify-1.jpg', 'assets/figures/gallery/mify-2.jpg',
+      'assets/figures/gallery/mify-3.jpg', 'assets/figures/gallery/mify-4.jpg',
+      'assets/figures/gallery/mify-5.jpg', 'assets/figures/gallery/mify-6.jpg',
+      'assets/figures/gallery/mify-7.jpg',
+    ],
+    'marvelous-questions': [
+      'assets/figures/gallery/mq-1.jpg', 'assets/figures/gallery/mq-2.jpg',
+      'assets/figures/gallery/mq-3.jpg', 'assets/figures/gallery/mq-4.jpg',
+      'assets/figures/gallery/mq-5.jpg',
+    ],
+  };
+
+  const modal = document.getElementById('pubModal');
+  const pmImg = document.getElementById('pmImg');
+  const pmFigure = document.getElementById('pmFigure');
+  const pmDots = document.getElementById('pmDots');
+  let galImgs = [], galIdx = 0, galAlt = '';
+
+  function showSlide(i) {
+    galIdx = (i + galImgs.length) % galImgs.length;
+    pmImg.src = galImgs[galIdx];
+    pmImg.alt = galAlt + ' — screenshot ' + (galIdx + 1) + ' of ' + galImgs.length;
+    Array.from(pmDots.children).forEach((d, n) => d.classList.toggle('active', n === galIdx));
+  }
+  function initGallery(article, thumbSrc, alt) {
+    galAlt = alt;
+    galImgs = GALLERIES[article.id] || [thumbSrc];
+    galIdx = 0;
+    pmFigure.classList.toggle('single', galImgs.length < 2);
+    pmDots.innerHTML = galImgs.map((_, n) =>
+      '<button class="pm-dot" data-i="' + n + '" aria-label="Go to image ' + (n + 1) + '"></button>').join('');
+    showSlide(0);
+  }
+
+  function openModal(article) {
+    const card = article.querySelector('.pub-card');
+    const img = card.querySelector('.pub-thumb img');
+    initGallery(article, img.getAttribute('src'), (img.getAttribute('alt') || '').split(' — ')[0]);
+    document.getElementById('pmMeta').textContent = card.querySelector('.pub-year').textContent.trim();
+    document.getElementById('pmTitle').textContent = card.querySelector('h3').textContent;
+    document.getElementById('pmAuthors').innerHTML = card.querySelector('.pub-authors').innerHTML;
+    document.getElementById('pmAbstract').textContent = article.dataset.abstract || '';
+    const isProject = (article.dataset.type || '').split(' ').includes('projects');
+    document.getElementById('pmSubHead').textContent = isProject ? 'Links & recognition' : 'Publications';
+    const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>';
+    document.getElementById('pmOutputs').innerHTML = (PROJECTS[article.id] || []).map(o => {
+      const href = o.url || (o.doi ? 'https://doi.org/' + o.doi : null);
+      const link = href ? '<a class="pub-output-link" href="' + href + '" target="_blank" rel="noopener">View ' + arrow + '</a>' : '';
+      return '<li class="pub-output">' +
+        '<span class="ptype ptype-' + o.type.toLowerCase() + '">' + o.type + '</span>' +
+        '<div class="pub-output-info"><span class="pub-output-venue">' + o.venue + '</span>' +
+        '<span class="pub-output-year">' + o.year + '</span></div>' + link +
+      '</li>';
+    }).join('');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.pub-card').forEach(card => {
+    card.addEventListener('click', e => { e.preventDefault(); openModal(card.closest('.pub')); });
+  });
+
+  /* Project card thumbnails: manual left/right slideshow */
+  const chevL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>';
+  const chevR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
+  document.querySelectorAll('.pub-card').forEach(card => {
+    const art = card.closest('.pub');
+    const imgs = GALLERIES[art.id];
+    if (!imgs || imgs.length < 2) return;
+    const thumb = card.querySelector('.pub-thumb');
+    const base = thumb.querySelector('img');
+    base.classList.add('thumb-slide', 'active');
+    const frag = document.createDocumentFragment();
+    imgs.slice(1).forEach(src => {
+      const im = document.createElement('img');
+      im.className = 'thumb-slide'; im.src = src; im.alt = ''; im.loading = 'lazy';
+      frag.appendChild(im);
+    });
+    base.after(frag);
+    const prev = document.createElement('button');
+    prev.type = 'button'; prev.className = 'thumb-nav thumb-prev'; prev.setAttribute('aria-label', 'Previous image'); prev.innerHTML = chevL;
+    const next = document.createElement('button');
+    next.type = 'button'; next.className = 'thumb-nav thumb-next'; next.setAttribute('aria-label', 'Next image'); next.innerHTML = chevR;
+    thumb.appendChild(prev); thumb.appendChild(next);
+    const dots = document.createElement('div');
+    dots.className = 'thumb-dots';
+    dots.innerHTML = imgs.map((_, i) => '<i' + (i === 0 ? ' class="active"' : '') + ' data-i="' + i + '"></i>').join('');
+    thumb.appendChild(dots);
+    const slides = thumb.querySelectorAll('.thumb-slide');
+    const dotEls = dots.querySelectorAll('i');
+    let idx = 0;
+    const go = i => {
+      slides[idx].classList.remove('active'); dotEls[idx].classList.remove('active');
+      idx = (i + slides.length) % slides.length;
+      slides[idx].classList.add('active'); dotEls[idx].classList.add('active');
+    };
+    const stop = e => { e.preventDefault(); e.stopPropagation(); };
+    prev.addEventListener('click', e => { stop(e); go(idx - 1); });
+    next.addEventListener('click', e => { stop(e); go(idx + 1); });
+    dots.addEventListener('click', e => { const d = e.target.closest('i'); if (d) { stop(e); go(+d.dataset.i); } });
+  });
+  modal.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeModal(); });
+  document.getElementById('pmPrev').addEventListener('click', e => { e.stopPropagation(); showSlide(galIdx - 1); });
+  document.getElementById('pmNext').addEventListener('click', e => { e.stopPropagation(); showSlide(galIdx + 1); });
+  pmDots.addEventListener('click', e => { const d = e.target.closest('.pm-dot'); if (d) showSlide(+d.dataset.i); });
+  document.addEventListener('keydown', e => {
+    if (!modal.classList.contains('open')) return;
+    if (e.key === 'Escape') closeModal();
+    else if (e.key === 'ArrowLeft' && galImgs.length > 1) showSlide(galIdx - 1);
+    else if (e.key === 'ArrowRight' && galImgs.length > 1) showSlide(galIdx + 1);
+  });
 </script>
 <script>
 /* ============================================================
@@ -559,7 +785,6 @@ main { padding-top: var(--nav-h); }
     { t: 'Home', d: 'Intro & news', u: 'index.html', g: 'Pages', ic: 'home' },
     { t: 'Portfolio', d: 'Papers & projects', u: 'research.html', g: 'Pages', ic: 'doc' },
     { t: 'Experience', d: 'Roles, talks & teaching', u: 'experience.html', g: 'Pages', ic: 'brief' },
-    { t: 'Hobbies', d: 'Life outside research', u: 'hobbies.html', g: 'Pages', ic: 'pen' },
     { t: 'Contact', d: 'Get in touch', u: 'contact.html', g: 'Pages', ic: 'mail' },
     { t: 'Email Haile', d: 'haile.teshome@ucsf.edu', u: 'mailto:haile.teshome@ucsf.edu', g: 'Connect', ic: 'mail' },
     { t: 'LinkedIn', d: 'in/haile-teshome', u: 'https://www.linkedin.com/in/haile-teshome', g: 'Connect', ic: 'link' },

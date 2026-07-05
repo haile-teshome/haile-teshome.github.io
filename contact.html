@@ -333,7 +333,7 @@ main { padding-top: var(--nav-h); }
     background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--r);
     box-shadow: var(--shadow-card); padding: 32px 32px 30px; display: flex; flex-direction: column;
   }
-  .form-card h2 { font-size: 23px; letter-spacing: -0.025em; }
+  .form-card h2 { font-size: 23px; letter-spacing: -0.025em; margin-bottom: 24px; }
   .form-card .lede { color: var(--text-2); font-size: 15.5px; margin: 8px 0 24px; }
   .field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
   .field label { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); }
@@ -362,6 +362,19 @@ main { padding-top: var(--nav-h); }
   .form-success h3 { font-size: 21px; letter-spacing: -0.02em; margin-bottom: 8px; }
   .form-success p { color: var(--text-2); font-size: 15px; max-width: 340px; margin: 0; }
 
+  /* direct contact methods */
+  .contact-methods { display: flex; flex-direction: column; gap: 12px; }
+  .cmethod { display: flex; align-items: center; gap: 15px; background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--r); padding: 15px 18px; box-shadow: var(--shadow); transition: transform 0.22s var(--ease), border-color 0.22s var(--ease), box-shadow 0.22s var(--ease); }
+  .cmethod:hover { border-color: var(--border-2); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  .cmethod .cm-ic { width: 42px; height: 42px; flex: none; border-radius: 11px; background: var(--bg); border: 1px solid var(--border); display: grid; place-items: center; color: var(--accent-text); }
+  .cmethod .cm-ic svg { width: 20px; height: 20px; }
+  .cmethod .cm-text { display: flex; flex-direction: column; min-width: 0; }
+  .cm-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); }
+  .cm-value { font-size: 15.5px; color: var(--text); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cmethod .cm-arrow { margin-left: auto; color: var(--text-3); transition: transform 0.2s var(--ease), color 0.2s var(--ease); }
+  .cmethod:hover .cm-arrow { color: var(--accent); transform: translate(2px, -2px); }
+  .cmethod .cm-arrow svg { width: 17px; height: 17px; }
+
   @media (max-width: 860px) {
     .contact-grid { grid-template-columns: 1fr; }
     .photo-card image-slot { aspect-ratio: 16 / 11; }
@@ -378,7 +391,6 @@ main { padding-top: var(--nav-h); }
       <a href="index.html">Home</a>
       <a href="experience.html">Experience</a>
       <a href="research.html">Portfolio</a>
-      <a href="hobbies.html">Hobbies</a>
       <a href="contact.html" class="active">Contact</a>
     </nav>
     <div class="nav-tools">
@@ -395,9 +407,7 @@ main { padding-top: var(--nav-h); }
 <main>
 <section class="page-hero">
   <div class="wrap">
-    <div class="eyebrow reveal">Get in touch</div>
-    <h1 class="reveal" data-d="1">Let's build something useful.</h1>
-    <p class="reveal" data-d="2">Have a question, an idea, or a collaboration in mind? Leave a message below and it'll land straight in my inbox.</p>
+    <div class="eyebrow reveal">Contact</div>
   </div>
 </section>
 
@@ -408,7 +418,6 @@ main { padding-top: var(--nav-h); }
       <form class="form-card reveal" id="contactForm" novalidate>
         <div class="form-body">
           <h2>Send a message</h2>
-          <p class="lede">Add your email so I can reply, write a note, and hit send.</p>
           <div class="field">
             <label for="cf-email">Your email</label>
             <input type="email" id="cf-email" name="email" placeholder="you@example.com" autocomplete="email" required />
@@ -419,7 +428,7 @@ main { padding-top: var(--nav-h); }
           </div>
           <div class="form-error" id="cf-error" role="alert"></div>
           <div class="form-foot">
-            <span class="form-note">I'll get back to you as soon as I can.</span>
+            <span class="form-note">I usually reply within a day or two.</span>
             <button type="submit" class="btn btn-primary">Send message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg></button>
           </div>
         </div>
@@ -498,7 +507,6 @@ main { padding-top: var(--nav-h); }
     { t: 'Home', d: 'Intro & news', u: 'index.html', g: 'Pages', ic: 'home' },
     { t: 'Portfolio', d: 'Papers & projects', u: 'research.html', g: 'Pages', ic: 'doc' },
     { t: 'Experience', d: 'Roles, talks & teaching', u: 'experience.html', g: 'Pages', ic: 'brief' },
-    { t: 'Hobbies', d: 'Life outside research', u: 'hobbies.html', g: 'Pages', ic: 'pen' },
     { t: 'Contact', d: 'Get in touch', u: 'contact.html', g: 'Pages', ic: 'mail' },
     { t: 'Email Haile', d: 'haile.teshome@ucsf.edu', u: 'mailto:haile.teshome@ucsf.edu', g: 'Connect', ic: 'mail' },
     { t: 'LinkedIn', d: 'in/haile-teshome', u: 'https://www.linkedin.com/in/haile-teshome', g: 'Connect', ic: 'link' },

@@ -344,7 +344,7 @@ main { padding-top: var(--nav-h); }
   .pub-arrow { position: absolute; top: 12px; right: 12px; width: 30px; height: 30px; border-radius: 50%; background: color-mix(in oklab, var(--bg) 82%, transparent); backdrop-filter: saturate(1.4) blur(6px); -webkit-backdrop-filter: saturate(1.4) blur(6px); border: 1px solid var(--border); display: grid; place-items: center; color: var(--text-2); transition: all 0.25s var(--ease); }
   .pub-card:hover .pub-arrow { background: var(--accent); color: oklch(0.99 0.01 80); border-color: var(--accent); transform: translate(2px, -2px); }
   .pub-arrow svg { width: 14px; height: 14px; }
-  .pub-ribbon { position: absolute; z-index: 3; top: 30px; left: -52px; transform: rotate(-45deg); background: linear-gradient(180deg, #f8e08c 0%, #e8c452 45%, #c89a2c 100%); color: #4a3705; font-family: var(--font-mono); font-weight: 700; font-size: 8px; letter-spacing: 0.01em; text-transform: uppercase; text-align: center; padding: 5px 54px; box-shadow: 0 2px 5px rgba(0,0,0,.30); border-top: 1px solid rgba(255,255,255,.55); }
+  .pub-ribbon { position: absolute; z-index: 3; top: 34px; left: -60px; width: 216px; transform: rotate(-45deg); background: linear-gradient(180deg, #f8e08c 0%, #e8c452 45%, #c89a2c 100%); color: #4a3705; font-family: var(--font-mono); font-weight: 700; font-size: 7.6px; letter-spacing: 0.015em; text-transform: uppercase; text-align: center; padding: 6px 0; box-shadow: 0 2px 5px rgba(0,0,0,.30); border-top: 1px solid rgba(255,255,255,.55); }
   .pub-body { display: flex; flex-direction: column; flex: 1; padding: 20px 22px 22px; }
   .pub-year { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent-text); margin-bottom: 11px; }
   .pub-year small { color: var(--text-3); font-size: 12px; }
@@ -491,11 +491,6 @@ main { padding-top: var(--nav-h); }
             <div class="pub-main">
               <h3>MIFY</h3>
               <div class="pub-authors">LLM summarization of consent forms, AI prescreening, and voice-enabled patient matching for clinical trials.</div>
-              <div class="pub-meta-row">
-                <span class="pub-pill">Claude</span>
-                <span class="pub-pill">Voice AI</span>
-                <span class="pub-pill">Regeneron Prize</span>
-              </div>
             </div>
           </div>
         </a>
@@ -509,11 +504,7 @@ main { padding-top: var(--nav-h); }
             <div class="pub-year">2016 <small>· LA Hacks</small></div>
             <div class="pub-main">
               <h3>Marvelous Questions</h3>
-              <div class="pub-authors">Natural-language Q&amp;A — ask in plain English and it answers via the Marvel API.</div>
-              <div class="pub-meta-row">
-                <span class="pub-pill">NLP</span>
-                <span class="pub-pill">API integration</span>
-              </div>
+              <div class="pub-authors">Natural-language Q&amp;A that answers Marvel questions in plain English via the Marvel API.</div>
             </div>
           </div>
         </a>

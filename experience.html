@@ -420,7 +420,7 @@ main { padding-top: var(--nav-h); }
           <a href="#education">Education</a>
           <a href="#teaching">Teaching</a>
         </nav>
-        <a class="btn btn-ghost" href="Haile_Teshome_CV.docx" download style="width:100%; justify-content:center;">Download CV <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg></a>
+        <a class="btn btn-ghost" href="Haile_Teshome_Resume.pdf" download="Haile_Teshome_Resume.pdf" style="width:100%; justify-content:center;">Download Resume <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg></a>
       </aside>
 
       <!-- timeline -->
@@ -430,7 +430,7 @@ main { padding-top: var(--nav-h); }
 
           <div class="tl-item current reveal">
             <div class="tl-dates">Jun 2026 — Sep 2026 <span class="now">Current</span> <span class="loc">Palo Alto, CA</span></div>
-            <div class="tl-head"><div class="tl-logo" data-mono="SHS"><img src="assets/logos/siemens.png" alt="Siemens Healthineers" loading="lazy"></div><div class="tl-logo" data-mono="VAR"><img src="assets/logos/varian.png" alt="Varian Medical Systems" loading="lazy"></div><h3>AI/ML Research Engineer Intern</h3></div>
+            <div class="tl-head"><div class="tl-logo" data-mono="SHS"><img src="assets/logos/siemens.png" alt="Siemens Healthineers" loading="lazy"></div><div class="tl-logo" data-mono="VAR"><img src="assets/logos/varian.png" alt="Varian Medical Systems" loading="lazy"></div><h3>AI/ML Engineer Intern</h3></div>
             <div class="tl-org">Siemens Healthineers / Varian Medical Systems</div>
             <ul class="tl-bullets">
               <li>Building agentic AI applications for design quality and regulatory affairs in medical device development.</li>
@@ -636,7 +636,8 @@ main { padding-top: var(--nav-h); }
     { t: 'Contact', d: 'Get in touch', u: 'contact.html', g: 'Pages', ic: 'mail' },
     { t: 'Email Haile', d: 'haile.teshome@ucsf.edu', u: 'mailto:haile.teshome@ucsf.edu', g: 'Connect', ic: 'mail' },
     { t: 'LinkedIn', d: 'in/haile-teshome', u: 'https://www.linkedin.com/in/haile-teshome', g: 'Connect', ic: 'link' },
-    { t: 'Download CV', d: '.docx', u: 'Haile_Teshome_CV.docx', g: 'Connect', ic: 'down' },
+    { t: 'Google Scholar', d: 'Publications', u: 'https://scholar.google.com/citations?user=9jtTCxYAAAAJ&hl=en', g: 'Connect', ic: 'doc' },
+    { t: 'Download Resume', d: '.pdf', u: 'Haile_Teshome_Resume.pdf', g: 'Connect', ic: 'down' },
     { t: 'Toggle theme', d: 'Light / dark', u: '#theme', g: 'Actions', ic: 'sun' },
   ];
   const ICONS = {
@@ -687,7 +688,7 @@ main { padding-top: var(--nav-h); }
     if (!p) return;
     closeCmdk();
     if (p.u === '#theme') { setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); return; }
-    if (p.u.startsWith('http') || p.u.startsWith('mailto') || p.u.endsWith('.docx')) { window.open(p.u, p.u.startsWith('http') ? '_blank' : '_self'); return; }
+    if (p.u.startsWith('http') || p.u.startsWith('mailto') || p.u.endsWith('.pdf')) { window.open(p.u, p.u.startsWith('http') ? '_blank' : '_self'); return; }
     window.location.href = p.u;
   }
   function openCmdk() { cmdk.classList.add('open'); input.value = ''; sel = 0; renderList(); setTimeout(() => input.focus(), 30); }

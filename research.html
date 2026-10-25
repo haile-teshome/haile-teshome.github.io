@@ -447,6 +447,37 @@ main { padding-top: var(--nav-h); }
 
     <div class="pub-list" id="pubList">
 
+      <!-- PROJECT: Evidence Engine (COLM workshop poster) -->
+      <article class="pub reveal" id="evidence-engine" data-year="2026" data-type="research" data-sortyear="2026.8" data-abstract="Evidence Engine is an open-source, human-in-the-loop platform for LLM-assisted systematic reviews. It covers the full workflow — research strategy, search planning, federated retrieval with citation snowballing, abstract and full-text screening, appraisal and extraction, and PRISMA reporting — with every LLM decision reasoned and overridable. Across 26 SYNERGY reviews with no labels, screening reached recall 0.986 and AUROC 0.849. A local fine-tuned 7B model matches frontier recall (0.895 vs 0.909) for about $0.05 per review versus ~$14 for a frontier API, and the orchestrated pipeline performs comparably to published baselines on most benchmarked stages.">
+        <a class="pub-card" href="https://github.com/haile-teshome/Evidence-Engine" target="_blank" rel="noopener">
+          <div class="pub-thumb"><img src="assets/figures/evidence-engine.jpg" alt="Evidence Engine — abstract screening view of the app" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+          <div class="pub-body">
+            <div class="pub-year">2026</div>
+            <div class="pub-main">
+              <h3>Evidence Engine: An Open-Source, Human-in-the-Loop Platform for LLM-Assisted Evidence Synthesis and Reviews</h3>
+              <div class="pub-authors"><span class="me">Teshome H</span>, Peng OK, Hoffmann TJ, Seaman C, Ackley SF</div>
+              <div class="pub-meta-row">
+                <span class="pub-pill">LM4Sci @ COLM</span>
+                <span class="pub-pill">Poster</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- PROJECT: Benefit Borough -->
+      <article class="pub reveal" id="benefit-borough" data-year="2026" data-type="applications projects" data-sortyear="2026.9" data-abstract="More than $100B a year in earned benefits goes unclaimed. Benefit Borough is a pixel-art town where every benefit you are owed is tracked in one place, and AI agents find unclaimed benefits, fill out your claims, and shop your perks — with the user keeping final approval over every action.">
+        <a class="pub-card" href="#benefit-borough">
+          <div class="pub-thumb"><img src="assets/figures/benefit-borough.jpg" alt="Benefit Borough — AI agents that find and claim your unclaimed benefits" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+          <div class="pub-body">
+            <div class="pub-year">2026</div>
+            <div class="pub-main">
+              <h3>Benefit Borough</h3>
+              <div class="pub-authors">AI agents that track your benefits, fill your claims, and shop your perks — with you giving final approval.</div>
+            </div>
+          </div>
+        </a>
+      </article>
 
       <!-- PROJECT: Lyme diagnostic (journal + conference) -->
       <article class="pub reveal" id="lyme-dx" data-year="2020" data-type="research" data-sortyear="2020.2" data-abstract="Standard two-tier serology for Lyme disease is under 50% sensitive in early-stage infection, costs over $400, and takes more than a day. This work presents a rapid, low-cost point-of-care alternative: a paper-based multiplexed vertical flow assay (xVFA) that measures antibodies against seven Borrelia antigens and a synthetic peptide on a single sensing membrane, imaged by a mobile-phone reader. A deep neural network computationally selects the most informative antigen subset and infers the diagnosis. In fully-blinded testing across 96 serum samples it achieved an AUC of 0.950 with 90.5% sensitivity and 87.0% specificity; with batch-specific standardization and threshold tuning, specificity rose to 96.3% (AUC 0.963). Each test costs about $0.42 and runs in 15 minutes.">
@@ -554,6 +585,10 @@ main { padding-top: var(--nav-h); }
 
   /* Each project groups its journal / conference / preprint outputs */
   const PROJECTS = {
+    'evidence-engine': [
+      { type: 'Poster', venue: 'LM4Sci Workshop @ COLM 2026', year: 2026, url: 'assets/figures/colm-poster.jpg' },
+      { type: 'Code',   venue: 'Evidence Engine on GitHub (MIT)', year: 2026, url: 'https://github.com/haile-teshome/Evidence-Engine' },
+    ],
     'lyme-dx': [
       { type: 'Journal',    venue: 'ACS Nano, 14(1):229–240',                              year: 2020, doi: '10.1021/acsnano.9b08151' },
       { type: 'Conference', venue: 'Proc. SPIE 11469 — Emerging Topics in Artificial Intelligence', year: 2020, doi: '10.1117/12.2567459' },
@@ -605,6 +640,7 @@ main { padding-top: var(--nav-h); }
   /* ---------- Publication preview modal ---------- */
   /* Extra screenshots shown as a carousel in the preview modal */
   const GALLERIES = {
+    'evidence-engine': ['assets/figures/colm-poster.jpg'],
     'mify': [
       'assets/figures/gallery/mify-1.jpg', 'assets/figures/gallery/mify-2.jpg',
       'assets/figures/gallery/mify-3.jpg', 'assets/figures/gallery/mify-4.jpg',
@@ -649,7 +685,9 @@ main { padding-top: var(--nav-h); }
     document.getElementById('pmAuthors').innerHTML = card.querySelector('.pub-authors').innerHTML;
     document.getElementById('pmAbstract').textContent = article.dataset.abstract || '';
     const isProject = (article.dataset.type || '').split(' ').includes('projects');
-    document.getElementById('pmSubHead').textContent = isProject ? 'Links & recognition' : 'Publications';
+    const pmSub = document.getElementById('pmSubHead');
+    pmSub.textContent = isProject ? 'Links & recognition' : 'Publications';
+    pmSub.hidden = !(PROJECTS[article.id] || []).length;
     const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>';
     document.getElementById('pmOutputs').innerHTML = (PROJECTS[article.id] || []).map(o => {
       const href = o.url || (o.doi ? 'https://doi.org/' + o.doi : null);

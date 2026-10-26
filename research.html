@@ -384,7 +384,7 @@ main { padding-top: var(--nav-h); }
   .pub-modal-body h2 { font-size: 22px; line-height: 1.26; letter-spacing: -0.02em; margin-bottom: 14px; }
   .pub-modal-authors { color: var(--text-2); font-size: 14px; line-height: 1.55; margin-bottom: 18px; }
   .pub-modal-authors .me { color: var(--text); font-weight: 600; border-bottom: 1.5px solid var(--accent); }
-  .pub-modal-abstract { color: var(--text); font-size: 15.5px; line-height: 1.7; margin: 0 0 24px; }
+  .pub-modal-abstract { color: var(--text); font-size: 15.5px; line-height: 1.7; margin: 0 0 24px; white-space: pre-line; }
   .pub-modal-sub { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; }
   .pub-outputs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
   .pub-output { display: flex; align-items: center; gap: 14px; padding: 13px 15px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 11px; transition: border-color 0.2s, background 0.2s; }
@@ -448,7 +448,7 @@ main { padding-top: var(--nav-h); }
     <div class="pub-list" id="pubList">
 
       <!-- PROJECT: Evidence Engine (COLM workshop poster) -->
-      <article class="pub reveal" id="evidence-engine" data-year="2026" data-type="research" data-sortyear="2026.8" data-abstract="Evidence Engine is an open-source, human-in-the-loop platform for LLM-assisted systematic reviews. It covers the full workflow — research strategy, search planning, federated retrieval with citation snowballing, abstract and full-text screening, appraisal and extraction, and PRISMA reporting — with every LLM decision reasoned and overridable. Across 26 SYNERGY reviews with no labels, screening reached recall 0.986 and AUROC 0.849. A local fine-tuned 7B model matches frontier recall (0.895 vs 0.909) for about $0.05 per review versus ~$14 for a frontier API, and the orchestrated pipeline performs comparably to published baselines on most benchmarked stages.">
+      <article class="pub reveal" id="evidence-engine" data-year="2026" data-type="research applications" data-sortyear="2026.8" data-abstract="Evidence Engine is an open-source, human-in-the-loop platform for LLM-assisted systematic reviews. It covers the full workflow — research strategy, search planning, federated retrieval with citation snowballing, abstract and full-text screening, appraisal and extraction, and PRISMA reporting — with every LLM decision reasoned and overridable. Across 26 SYNERGY reviews with no labels, screening reached recall 0.986 and AUROC 0.849. A local fine-tuned 7B model matches frontier recall (0.895 vs 0.909) for about $0.05 per review versus ~$14 for a frontier API, and the orchestrated pipeline performs comparably to published baselines on most benchmarked stages.">
         <a class="pub-card" href="https://github.com/haile-teshome/Evidence-Engine" target="_blank" rel="noopener">
           <div class="pub-thumb"><img src="assets/figures/evidence-engine.jpg" alt="Evidence Engine — abstract screening view of the app" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
           <div class="pub-body">
@@ -459,6 +459,26 @@ main { padding-top: var(--nav-h); }
               <div class="pub-meta-row">
                 <span class="pub-pill">LM4Sci @ COLM</span>
                 <span class="pub-pill">Poster</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- PROJECT: Prostate cancer diet systematic review (journal) -->
+      <article class="pub reveal" id="prostate-diet-sr" data-year="2026" data-type="research" data-sortyear="2026.6" data-abstract="Objective: The purpose of this study was to systematically review evidence on associations of postdiagnostic consumption of red meat, poultry, and eggs with prostate cancer outcomes among men diagnosed with prostate cancer.
+Methods: We searched PubMed/MEDLINE, Web of Science, and Embase through July 17, 2025, with no date restrictions. Eligible studies included prospective cohorts examining postdiagnostic consumption of red meat, poultry, and eggs in relation to prostate cancer progression (eg, biochemical recurrence, initiation of secondary treatment, metastases, and prostate cancer-specific mortality) and/or all-cause mortality (ACM) in men with prostate cancer. Two reviewers independently screened articles, extracted data, and assessed risk of bias.
+Results: Six cohort studies including &gt; 10,000 men with prostate cancer met inclusion criteria. Across 5 studies, total red meat consumption was not associated with progression outcomes, while 1 of 2 studies evaluating ACM reported a positive relationship. However, 2 studies indicated that replacement of red meat with poultry or fish was associated with lower risk of progression or ACM. One study reported a positive association between processed red meat intake and both prostate cancer-specific mortality and ACM, although 4 other studies reported no significant association. Total poultry intake was not significantly associated with progression. By contrast, poultry with skin was linked to higher risk in 2 studies (1 significant), whereas poultry without skin was not associated with progression. Poultry intake was associated with lower ACM risk in the only study evaluating this relationship. Evidence for egg consumption was inconsistent; a positive association with progression was observed in 1 study with especially high intake in the highest category (~5.5 servings/week), whereas no associations were found in 4 studies where intakes were lower in the highest categories (≥ 2.5-3 servings/week). One out of 2 studies demonstrated a positive relationship with ACM.
+Conclusions: Evidence linking postdiagnostic intake of red meat, poultry, and eggs with prostate cancer progression remain limited and inconsistent, although stronger statistical evidence was observed for ACM. Prostate cancer progression risk may be specific to preparation methods (eg, poultry with skin) and higher egg intake (&gt; 3-5 servings/week), while replacing red meat with skinless poultry or fish may offer clinical benefit. Additional well-designed prospective studies are needed.">
+        <a class="pub-card" href="https://doi.org/10.1097/JU.0000000000005263" target="_blank" rel="noopener">
+          <div class="pub-thumb"><img src="assets/figures/prostate-diet-sr.jpg" alt="Red meat, poultry and eggs after prostate cancer — systematic review summary" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+          <div class="pub-body">
+            <div class="pub-year">2026</div>
+            <div class="pub-main">
+              <h3>Postdiagnostic Red Meat, Poultry, and Egg Intake and Risk of Prostate Cancer Progression and Mortality: A Systematic Review</h3>
+              <div class="pub-authors">Sandhu S, <span class="me">Teshome H</span>, Van Blarigan EL, Chan JM, Kenfield SA, Graff RE</div>
+              <div class="pub-meta-row">
+                <span class="pub-pill">J Urol</span>
               </div>
             </div>
           </div>
@@ -585,6 +605,9 @@ main { padding-top: var(--nav-h); }
 
   /* Each project groups its journal / conference / preprint outputs */
   const PROJECTS = {
+    'prostate-diet-sr': [
+      { type: 'Journal', venue: 'The Journal of Urology', year: 2026, doi: '10.1097/JU.0000000000005263' },
+    ],
     'evidence-engine': [
       { type: 'Poster', venue: 'LM4Sci Workshop @ COLM 2026', year: 2026, url: 'assets/figures/colm-poster.jpg' },
       { type: 'Code',   venue: 'Evidence Engine on GitHub (MIT)', year: 2026, url: 'https://github.com/haile-teshome/Evidence-Engine' },

@@ -447,6 +447,24 @@ main { padding-top: var(--nav-h); }
 
     <div class="pub-list" id="pubList">
 
+      <!-- PROJECT: RadOncReason (RL with verifiable rewards) -->
+      <article class="pub reveal" id="radoncreason" data-year="2026" data-type="research" data-sortyear="2026.85" data-abstract="LLM treatment recommendations that conflict with national guidelines are a key safety concern for AI decision support in cancer care. RadOncReason asks whether reinforcement learning against a verifiable, guideline-grounded reward can make these recommendations safe, guideline-concordant, and verifiable. We post-trained Qwen2.5-7B to propose prostate cancer treatment plans, scoring each plan with an automated verifier that encodes NCCN risk stratification, treatment modality, and per-risk-group dose, fractionation, and therapy ranges, and compared three RL algorithms and several reward definitions, including process rewards and a learned reward model. Performance was driven largely by reward definition rather than algorithm: without an explicit risk constraint, models systematically over-treated low- and intermediate-risk patients, while encoding the clinical risk constraint in the verifier produced fully guideline-concordant plans (0.970 to 1.000; +0.030, 95% CI [+0.015, +0.048]), which neither a larger unconstrained model nor alternative algorithms matched. The models&#39; stated reasoning often did not drive their recommendations, suggesting clinical use should rely on independently verified recommendations rather than model explanations. The framework generalized to a ten-site pan-cancer cohort of 5,267 patients (concordance 0.997).">
+        <a class="pub-card" href="#radoncreason">
+          <div class="pub-thumb"><img src="assets/figures/radoncreason.jpg" alt="RadOncReason — guideline concordance by training method" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+          <div class="pub-body">
+            <div class="pub-year">2026 <small>· UCSF Prostate Cancer Program</small></div>
+            <div class="pub-main">
+              <h3>RadOncReason: Reinforcement Learning with NCCN-Verifiable Rewards for Guideline-Concordant Prostate Cancer Treatment Planning</h3>
+              <div class="pub-authors"><span class="me">Teshome H</span>, Chen WS, Seyedin SN, Sushil M, Hong JC</div>
+              <div class="pub-meta-row">
+                <span class="pub-pill">Poster</span>
+                <span class="pub-pill">Manuscript in prep</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </article>
+
       <!-- PROJECT: Evidence Engine (COLM workshop poster) -->
       <article class="pub reveal" id="evidence-engine" data-year="2026" data-type="research applications" data-sortyear="2026.8" data-abstract="Evidence Engine is an open-source, human-in-the-loop platform for LLM-assisted systematic reviews. It covers the full workflow — research strategy, search planning, federated retrieval with citation snowballing, abstract and full-text screening, appraisal and extraction, and PRISMA reporting — with every LLM decision reasoned and overridable. Across 26 SYNERGY reviews with no labels, screening reached recall 0.986 and AUROC 0.849. A local fine-tuned 7B model matches frontier recall (0.895 vs 0.909) for about $0.05 per review versus ~$14 for a frontier API, and the orchestrated pipeline performs comparably to published baselines on most benchmarked stages.">
         <a class="pub-card" href="https://github.com/haile-teshome/Evidence-Engine" target="_blank" rel="noopener">
@@ -459,6 +477,41 @@ main { padding-top: var(--nav-h); }
               <div class="pub-meta-row">
                 <span class="pub-pill">LM4Sci @ COLM</span>
                 <span class="pub-pill">Poster</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- PROJECT: LLMs in radiation oncology (narrative review) -->
+      <article class="pub reveal" id="radonc-review" data-year="2026" data-type="research" data-sortyear="2026.78" data-abstract="The clinical practice of radiation oncology spans a longitudinal care continuum that demands repeated synthesis of imaging, pathology, electronic health record data, evidence-based guidelines, and patient preferences into treatment decisions, with cognitive demands that have grown faster than available encounter time. Large language models (LLMs) have emerged as candidate tools to augment this work, from automating routine documentation to supporting complex treatment decisions. This narrative review frames the literature on LLM applications in radiation oncology around the radiation oncologist&#39;s clinical workflow, drawing on 322 studies identified in a structured search through May 2026. Studies are characterized along three dimensions: workflow phase, from initial consultation through post-treatment follow-up; technical approach, from prompting and retrieval-augmented generation to fine-tuning, agentic, and multimodal systems; and disease site. Published LLM applications are heavily concentrated in pre-treatment decision support and treatment-planning automation, while on-treatment management and the entire post-treatment phase remain minimally represented.">
+        <a class="pub-card" href="#radonc-review">
+          <div class="pub-thumb"><img src="assets/figures/radonc-review.jpg" alt="Growth of LLM publications in oncology and radiation oncology, 2018–2025" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+          <div class="pub-body">
+            <div class="pub-year">2026</div>
+            <div class="pub-main">
+              <h3>Large Language Models in Radiation Oncology: A Workflow-Centered Narrative Review</h3>
+              <div class="pub-authors"><span class="me">Teshome H</span>, Ishiyama Y, Peng OK, Kouznetsov R, Kandhalu Bhaskar S, Nagasuri A, Mukundan R, Gounder N, Benson R, Leahey B, Hong JC</div>
+              <div class="pub-meta-row">
+                <span class="pub-pill">Semin Radiat Oncol</span>
+                <span class="pub-pill">Accepted</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- PROJECT: The Specialization Tax (survey, under review) -->
+      <article class="pub reveal" id="specialization-tax" data-year="2026" data-type="research" data-sortyear="2026.7" data-abstract="Large language models are trained in stages: pretraining for world knowledge, supervised fine-tuning (SFT) for instruction following, and reinforcement-style alignment (RL) for behavior. Developing domain-specific experts poses different risks depending on the adaptation stage: catastrophic forgetting of general reasoning, instruction washout, and an alignment tax on safety. We call this family of losses the specialization tax: any deterioration, measured against the model before adaptation, on a capability or behavior that is not the target. We review 223 studies published through September 2026, crossing three data regimes (domain-only, general-only, mixed) with three procedures (continued pretraining, SFT, RL alignment). Mixing the domain corpus with general data is the most promising mitigation, favoring retention in 8 of the 10 within-study comparisons. The best mixing ratio is unclear: across sixteen experiments varying the share of in-domain data, retained capability follows five shapes rather than one, and the assumed collapse at 100% domain data appears only on held-out loss, not on benchmark accuracy. Evaluation concentrates on three benchmarks, and safety is named in only 22 of the 223 studies, least often where it is most at risk.">
+        <a class="pub-card" href="#specialization-tax">
+          <div class="pub-thumb"><img src="assets/figures/specialization-tax.jpg" alt="Retained-capability curves across sixteen domain-mixing experiments" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+          <div class="pub-body">
+            <div class="pub-year">2026</div>
+            <div class="pub-main">
+              <h3>The Specialization Tax: A Survey of Model Stages, Data Mixtures, and the Cost of Domain Adaptation</h3>
+              <div class="pub-authors"><span class="me">Teshome H</span>, Baker NR, Ghosh S, Masters B, Leahey B, Sushil M</div>
+              <div class="pub-meta-row">
+                <span class="pub-pill">Under review</span>
               </div>
             </div>
           </div>
@@ -511,6 +564,7 @@ Conclusions: Evidence linking postdiagnostic intake of red meat, poultry, and eg
               <div class="pub-meta-row">
                 <span class="pub-pill">ACS Nano</span>
                 <span class="pub-pill">SPIE</span>
+                <span class="pub-pill">OSA Biophotonics</span>
               </div>
             </div>
           </div>
@@ -522,13 +576,12 @@ Conclusions: Evidence linking postdiagnostic intake of red meat, poultry, and eg
         <a class="pub-card" href="https://doi.org/10.1039/c9lc00011a" target="_blank" rel="noopener">
           <div class="pub-thumb"><img src="assets/figures/vfa-device.jpg" alt="Paper-based multiplexed vertical flow assay cassettes with a portable mobile-phone reader" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
           <div class="pub-body">
-            <div class="pub-year">2019 – 2020</div>
+            <div class="pub-year">2019</div>
             <div class="pub-main">
               <h3>Multiplexed Paper-Based Vertical Flow Assay Platform for Point-of-Care Testing</h3>
               <div class="pub-authors">Joung HA, Ballard ZS, Ma A, Tseng DK, <span class="me">Teshome H</span>, Burakowski S, Garner OB, Di Carlo D, Ozcan A</div>
               <div class="pub-meta-row">
                 <span class="pub-pill">Lab on a Chip</span>
-                <span class="pub-pill">OSA Biophotonics</span>
               </div>
             </div>
           </div>
@@ -605,20 +658,30 @@ Conclusions: Evidence linking postdiagnostic intake of red meat, poultry, and eg
 
   /* Each project groups its journal / conference / preprint outputs */
   const PROJECTS = {
+    'radoncreason': [
+      { type: 'Poster', venue: '2026 Scientific Retreat, UCSF Prostate Cancer Program', year: 2026 },
+    ],
+    'radonc-review': [
+      { type: 'Journal', venue: 'Seminars in Radiation Oncology (accepted)', year: 2026 },
+    ],
+    'specialization-tax': [
+      { type: 'Preprint', venue: 'Under review', year: 2026 },
+    ],
     'prostate-diet-sr': [
       { type: 'Journal', venue: 'The Journal of Urology', year: 2026, doi: '10.1097/JU.0000000000005263' },
     ],
     'evidence-engine': [
       { type: 'Poster', venue: 'LM4Sci Workshop @ COLM 2026', year: 2026, url: 'assets/figures/colm-poster.jpg' },
       { type: 'Code',   venue: 'Evidence Engine on GitHub (MIT)', year: 2026, url: 'https://github.com/haile-teshome/Evidence-Engine' },
+      { type: 'Journal', venue: 'JAMIA, Research and Applications (under review)', year: 2026 },
     ],
     'lyme-dx': [
       { type: 'Journal',    venue: 'ACS Nano, 14(1):229–240',                              year: 2020, doi: '10.1021/acsnano.9b08151' },
       { type: 'Conference', venue: 'Proc. SPIE 11469 — Emerging Topics in Artificial Intelligence', year: 2020, doi: '10.1117/12.2567459' },
+      { type: 'Conference', venue: 'OSA Biophotonics Congress — Clinical and Translational Biophotonics', year: 2020, doi: '10.1364/translational.2020.tth4b.5' },
     ],
     'vfa-platform': [
       { type: 'Journal',    venue: 'Lab on a Chip, 19(6):1027–1034',              year: 2019, doi: '10.1039/c9lc00011a' },
-      { type: 'Conference', venue: 'OSA Biophotonics Congress — Biomedical Optics', year: 2020, doi: '10.1364/translational.2020.tth4b.5' },
     ],
     'mify': [
       { type: 'Devpost', venue: 'MIFY on Devpost — CalHacks 12.0', year: 2025, url: 'https://devpost.com/software/mify' },

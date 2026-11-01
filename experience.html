@@ -385,43 +385,109 @@ main { padding-top: var(--nav-h); }
     .talk { grid-template-columns: 1fr; gap: 6px; }
   }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<script>
+  /* day / night: remembered choice, else the device setting */
+  (function () {
+    var t = null; try { t = localStorage.getItem('ht-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    /* restore the last weather look before first paint (no flash between pages) */
+    try {
+      var w = JSON.parse(localStorage.getItem('ht-wx') || 'null');
+      if (w && Date.now() - w.t < 3 * 3600 * 1000) {
+        ['night', 'golden', 'wet'].forEach(function (k) { if (w[k]) document.documentElement.classList.add('wx-' + k); });
+        window.__fog = { density: w.density, speed: w.speed, bright: w.bright };
+      }
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="assets/css/shell.css?v=4" />
+<style>
+  /* page nav: no colored side bars or boxes; active item is simply darker and bolder */
+  .xp-nav a, .xp-nav a:hover, .xp-nav a.active { border-left: 0; background: none; border-radius: 0; padding: 6px 0; }
+  .xp-nav a:hover { color: var(--text); }
+  .xp-nav a.active { color: var(--text); font-weight: 600; }
+
+  /* Education: three side-by-side tiles instead of stacked bars */
+  .edu-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .edu-card { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 20px; border-radius: 14px;
+              background: var(--card); border: 1px solid var(--rule); box-shadow: none; transform: none !important; }
+  .edu-card:hover { border-color: var(--text-3); box-shadow: none; }
+  .edu-card .meta { order: 1; text-align: left; font-family: "Newsreader", Georgia, serif; font-size: 30px; font-weight: 600; line-height: 1; color: var(--text); letter-spacing: -0.01em; }
+  .edu-card > div:not(.edu-logo):not(.meta) { order: 2; }
+  .edu-card h3 { font-size: 16.5px; line-height: 1.3; margin: 0 0 4px; }
+  .edu-card .school { font-size: 14px; color: var(--text-2); }
+  @media (max-width: 1000px) { .edu-grid { grid-template-columns: 1fr; } .edu-card { flex-direction: row; align-items: center; flex-wrap: wrap; } .edu-card .meta { order: 3; margin-left: auto; font-size: 22px; } }
+</style>
+<style>
+  .edu-card .meta { font-size: 24px; white-space: nowrap; }
+</style>
+<style>
+  /* each job / degree sits on its own card, just right of the timeline line */
+  .tl-item { isolation: isolate; padding-left: 50px; padding-right: 22px; }
+  .tl-item::after { content: ""; position: absolute; z-index: -1; left: 26px; right: 0; top: -18px; bottom: 22px;
+    background: var(--card); border: 1px solid var(--rule); border-radius: 14px; transition: border-color .2s; }
+  .tl-item:hover::after { border-color: var(--text-3); }
+  .tl-item:last-child::after { bottom: -10px; }
+  .tl-item .tl-bullets { margin-bottom: 0; }
+  .tl-item::before { top: 3px; }
+</style>
+<style>
+  /* single column: no on-page nav or resume button */
+  .xp-layout { grid-template-columns: 1fr; gap: 0; }
+</style>
+<style>
+  /* one continuous panel per section: segments meet edge to edge, hairlines between entries */
+  .tl-item::after { top: -20px; bottom: 20px; border-radius: 0; border-top: 1px solid var(--rule); border-bottom: 0; }
+  .tl-section-head + .tl-item::after { top: -22px; border-radius: 14px 14px 0 0; }
+  .tl-item:last-child::after { bottom: -16px; border-bottom: 1px solid var(--rule); border-radius: 0 0 14px 14px; }
+  .tl-section-head + .tl-item:last-child::after { border-radius: 14px; }
+  .tl-item:hover::after { border-color: var(--rule); }
+</style>
+<style>
+  /* Teaching & mentorship on a matching panel */
+  .talks-list { margin-left: 26px; background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 0 22px; }
+  .talks-list .talk { border-top: 1px solid var(--rule); padding: 20px 0; }
+  .talks-list .talk:first-child { border-top: 0; }
+  .talks-list .talk-when { color: var(--link); }
+</style>
+<style>
+  .talks-list .talk:last-child { border-bottom: 0; }
+  .talks-list { border-bottom: 1px solid var(--rule); }
+</style>
 </head>
 <body>
 
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="index.html"><span class="mark"><span>ht</span></span> Haile Teshome</a>
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="experience.html" class="active">Experience</a>
-      <a href="research.html">Portfolio</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <div class="nav-tools">
-      <button class="cmd-btn" data-cmdk-open aria-label="Open command menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
-        <span class="lbl">Search</span><kbd>⌘K</kbd>
-      </button>
-      <button class="icon-btn" data-theme-toggle aria-label="Toggle theme"></button>
-      <button class="icon-btn menu-btn" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-    </div>
+<aside class="side">
+  <img class="side-img" src="assets/side.jpg" alt="" aria-hidden="true">
+  <div class="side-tint" aria-hidden="true"></div>
+  <div class="side-inner">
+    <h1>Haile Teshome</h1>
+    <nav class="side-links">
+        <a href="https://www.linkedin.com/in/haile-teshome" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z"/></svg></a>
+        <a href="https://scholar.google.com/citations?user=9jtTCxYAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 1 9.5l4 2.4V17c0 .3.2.6.4.8C7 19.2 9.3 20 12 20s5-.8 6.6-2.2c.2-.2.4-.5.4-.8v-5.1l2-1.2V16h2V9.5zm0 2.3 7.4 4.2L12 13.8 4.6 9.5z"/></svg></a>
+        <a href="Haile_Teshome_Resume.pdf" download aria-label="Resume" title="Resume"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M12 11v6M9.5 14.5 12 17l2.5-2.5"/></svg></a>
+        <a href="https://github.com/haile-teshome" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.46-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.64 1.03 2.76 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.1 10.1 0 0 0 22 12.23C22 6.58 17.52 2 12 2z"/></svg></a>
+      </nav>
   </div>
-</header>
+</aside>
+<div class="page">
+  <nav class="tabs">
+    <a href="index.html">Home</a>
+    <a class="on" href="experience.html">Experience</a>
+    <a href="research.html">Portfolio</a>
+    <a href="contact.html">Contact</a>
+    <button class="theme-toggle" type="button" aria-label="Switch between day and night mode" title="Day / night">
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 13.2A8.5 8.5 0 1 1 10.8 3.5a6.6 6.6 0 0 0 9.7 9.7z"/></svg>
+    </button>
+  </nav>
 
 <main>
 <section class="section" style="padding-top: 84px;">
   <div class="wrap">
     <div class="xp-layout">
-      <!-- side nav -->
-      <aside class="xp-side">
-        <h4>On this page</h4>
-        <nav class="xp-nav">
-          <a href="#experience" class="active">Experience</a>
-          <a href="#education">Education</a>
-          <a href="#teaching">Teaching</a>
-        </nav>
-        <a class="btn btn-ghost" href="Haile_Teshome_Resume.pdf" download="Haile_Teshome_Resume.pdf" style="width:100%; justify-content:center;">Download Resume <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg></a>
-      </aside>
 
       <!-- timeline -->
       <div class="timeline">
@@ -429,7 +495,7 @@ main { padding-top: var(--nav-h); }
           <div class="tl-section-head"><span class="eyebrow">Work &amp; research</span></div>
 
           <div class="tl-item current reveal">
-            <div class="tl-dates">Jun 2026 — Sep 2026 <span class="loc">Palo Alto, CA</span></div>
+            <div class="tl-dates">Jun 2026 - Sep 2026 <span class="loc">Palo Alto, CA</span></div>
             <div class="tl-head"><div class="tl-logo" data-mono="SHS"><img src="assets/logos/siemens.png" alt="Siemens Healthineers" loading="lazy"></div><div class="tl-logo" data-mono="VAR"><img src="assets/logos/varian.png" alt="Varian Medical Systems" loading="lazy"></div><h3>AI/ML Engineer Intern</h3></div>
             <div class="tl-org">Siemens Healthineers / Varian Medical Systems</div>
             <ul class="tl-bullets">
@@ -438,7 +504,7 @@ main { padding-top: var(--nav-h); }
           </div>
 
           <div class="tl-item current reveal">
-            <div class="tl-dates">Nov 2025 — Present <span class="now">Current</span> <span class="loc">San Francisco, CA</span></div>
+            <div class="tl-dates">Nov 2025 - Present <span class="now">Current</span> <span class="loc">San Francisco, CA</span></div>
             <div class="tl-head"><div class="tl-logo" data-mono="UCSF"><img src="assets/logos/ucsf.png" alt="UCSF" loading="lazy"></div><h3>Graduate ML Researcher</h3></div>
             <div class="tl-org">UCSF Bakar Computational Health Sciences Institute <span class="dept">· Multimodal Medical AI &amp; Oncology Research Labs</span></div>
             <div class="tl-adv">Advisors: Dr. Julian Hong · Dr. Madhumita Sushil</div>
@@ -448,8 +514,8 @@ main { padding-top: var(--nav-h); }
           </div>
 
           <div class="tl-item current reveal">
-            <div class="tl-dates">2024 — Present <span class="now">Current</span> <span class="loc">San Francisco, CA</span></div>
-            <div class="tl-head"><div class="tl-logo" data-mono="Brown"><img src="assets/logos/brown.png" alt="Brown University" loading="lazy"></div><h3>ML Research Engineer</h3></div>
+            <div class="tl-dates">2024 - Present <span class="now">Current</span> <span class="loc">San Francisco, CA</span></div>
+            <div class="tl-head"><div class="tl-logo" data-mono="UCSF"><img src="assets/logos/ucsf.png" alt="UCSF" loading="lazy"></div><div class="tl-logo" data-mono="Brown"><img src="assets/logos/brown.png" alt="Brown University" loading="lazy"></div><h3>ML Research Engineer</h3></div>
             <div class="tl-org">UCSF / Brown University</div>
             <div class="tl-adv">Advisors: Sarah Ackley, PhD · Thomas J. Hoffmann, PhD · Christopher Seaman, MS</div>
             <ul class="tl-bullets">
@@ -458,17 +524,26 @@ main { padding-top: var(--nav-h); }
           </div>
 
           <div class="tl-item reveal">
-            <div class="tl-dates">May 2025 — Aug 2025 <span class="loc">San Francisco, CA</span></div>
+            <div class="tl-dates">May 2025 - Aug 2025 <span class="loc">San Francisco, CA</span></div>
             <div class="tl-head"><div class="tl-logo" data-mono="GNE"><img src="assets/logos/genentech.png" alt="Genentech" loading="lazy"></div><h3>AI/ML Engineer Intern</h3></div>
             <div class="tl-org">Genentech <span class="dept">· gRED Clinical Development Informatics, Digital Transformation</span></div>
             <ul class="tl-bullets">
-              <li>Designed and deployed a multi-agent LLM system for clinical trial protocol workflows — automating protocol quality checks, experimental design review, and data validation.</li>
+              <li>Designed and deployed a multi-agent LLM system for clinical trial protocol workflows - automating protocol quality checks, experimental design review, and data validation.</li>
             </ul>
           </div>
 
           <div class="tl-item reveal">
-            <div class="tl-dates">Jul 2022 — May 2025 <span class="loc">Thousand Oaks, CA · Remote</span></div>
-            <div class="tl-head"><div class="tl-logo" data-mono="AMGN"><img src="assets/logos/amgen.png" alt="Amgen" loading="lazy"></div><h3>Software / Machine Learning Engineer</h3></div>
+            <div class="tl-dates">May 2025 - Sep 2025 <span class="loc">San Francisco, CA (hybrid)</span></div>
+            <div class="tl-head"><div class="tl-logo" data-mono="UCSF"><img src="assets/logos/ucsf.png" alt="UCSF" loading="lazy"></div><h3>Catalyst Intern</h3></div>
+            <div class="tl-org">UCSF Catalyst Program</div>
+            <ul class="tl-bullets">
+              <li>Building a target product profile (TPP) for a digital health platform leveraging multimodal AI for neurodegenerative disease.</li>
+            </ul>
+          </div>
+
+          <div class="tl-item reveal">
+            <div class="tl-dates">Jul 2022 - May 2025 <span class="loc">Thousand Oaks, CA · Remote</span></div>
+            <div class="tl-head"><div class="tl-logo" data-mono="AMGN"><img src="assets/logos/amgen.png" alt="Amgen" loading="lazy"></div><h3>Software Engineer</h3></div>
             <div class="tl-org">Amgen <span class="dept">· Decision Sciences &amp; Generative AI Teams</span></div>
             <ul class="tl-bullets">
               <li>Built production ML and generative-AI systems and led internal GenAI adoption and responsible-AI best practices.</li>
@@ -476,7 +551,7 @@ main { padding-top: var(--nav-h); }
           </div>
 
           <div class="tl-item reveal">
-            <div class="tl-dates">Jun 2022 — Jul 2022 <span class="loc">Boston, MA</span></div>
+            <div class="tl-dates">Jun 2022 - Jul 2022 <span class="loc">Boston, MA</span></div>
             <div class="tl-head"><div class="tl-logo" data-mono="HSPH"><img src="assets/logos/harvard.png" alt="Harvard" loading="lazy"></div><h3>Research Engineer</h3></div>
             <div class="tl-org">Harvard T.H. Chan School of Public Health <span class="dept">· Global Health &amp; Population</span></div>
             <ul class="tl-bullets">
@@ -485,7 +560,7 @@ main { padding-top: var(--nav-h); }
           </div>
 
           <div class="tl-item reveal">
-            <div class="tl-dates">Aug 2018 — Jul 2019 <span class="loc">Los Angeles, CA</span></div>
+            <div class="tl-dates">Aug 2018 - Jul 2019 <span class="loc">Los Angeles, CA</span></div>
             <div class="tl-head"><div class="tl-logo" data-mono="UCLA"><img src="assets/logos/ucla.png" alt="UCLA" loading="lazy"></div><h3>Machine Learning / Data Science Intern</h3></div>
             <div class="tl-org">UCLA Health &amp; David Geffen School of Medicine <span class="dept">· Anesthesiology, Bioinformatics &amp; Health Analytics</span></div>
             <ul class="tl-bullets">
@@ -494,7 +569,7 @@ main { padding-top: var(--nav-h); }
           </div>
 
           <div class="tl-item reveal">
-            <div class="tl-dates">Sep 2016 — Sep 2019 <span class="loc">Los Angeles, CA</span></div>
+            <div class="tl-dates">Sep 2016 - Sep 2019 <span class="loc">Los Angeles, CA</span></div>
             <div class="tl-head"><div class="tl-logo" data-mono="UCLA"><img src="assets/logos/ucla.png" alt="UCLA" loading="lazy"></div><h3>Undergraduate Researcher</h3></div>
             <div class="tl-org">UCLA Bio &amp; Nano Photonics Laboratory</div>
             <div class="tl-adv">Advisors: Dr. Aydogan Ozcan · Dr. Hyou-Arm Joung</div>
@@ -502,36 +577,35 @@ main { padding-top: var(--nav-h); }
               <li>Developed paper-based biosensors and deep-learning image-analysis methods for disease diagnostics.</li>
             </ul>
           </div>
+
+          <div class="tl-item reveal">
+            <div class="tl-dates">Jul 2016 - Sep 2016 <span class="loc">Los Angeles, CA</span></div>
+            <div class="tl-head"><div class="tl-logo" data-mono="UCLA"><img src="assets/logos/ucla.png" alt="UCLA" loading="lazy"></div><h3>Undergraduate Researcher</h3></div>
+            <div class="tl-org">UCLA Biomedical Sciences Research Program (BSRP)</div>
+            <ul class="tl-bullets">
+              <li>Characterized novel <i>E. coli</i> gene mutations through genomic and bioinformatic analysis.</li>
+            </ul>
+          </div>
         </div>
 
         <!-- EDUCATION -->
         <div class="tl-section" id="education" style="margin-top:64px;">
           <div class="tl-section-head"><span class="eyebrow">Education</span></div>
-          <div class="edu-grid">
-            <div class="edu-card reveal">
-              <div class="edu-logo"><img src="assets/logos/ucsf.png" alt="UCSF" loading="lazy"></div>
-              <div>
-                <h3>M.S. Health Data Science</h3>
-                <div class="school">University of California, San Francisco</div>
-              </div>
-              <div class="meta">2026</div>
-            </div>
-            <div class="edu-card reveal">
-              <div class="edu-logo"><img src="assets/logos/stanford.png" alt="Stanford University" loading="lazy"></div>
-              <div>
-                <h3>UCSF–Stanford Exchange Scholar</h3>
-                <div class="school">Stanford University — Foundation Models in Healthcare · Deep RL</div>
-              </div>
-              <div class="meta">2025 – 2026</div>
-            </div>
-            <div class="edu-card reveal">
-              <div class="edu-logo"><img src="assets/logos/ucla.png" alt="UCLA" loading="lazy"></div>
-              <div>
-                <h3>B.S. Atmospheric &amp; Oceanic Science</h3>
-                <div class="school">University of California, Los Angeles</div>
-              </div>
-              <div class="meta">2021</div>
-            </div>
+          <div class="tl-item reveal">
+            <div class="tl-dates">2026</div>
+            <div class="tl-head"><div class="tl-logo" data-mono="UCSF"><img src="assets/logos/ucsf.png" alt="UCSF" loading="lazy"></div><h3>M.S. Health Data Science</h3></div>
+            <div class="tl-org">University of California, San Francisco</div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-dates">2025 - 2026</div>
+            <div class="tl-head"><div class="tl-logo" data-mono="Stanford"><img src="assets/logos/stanford.png" alt="Stanford University" loading="lazy"></div><h3>UCSF-Stanford Exchange Scholar</h3></div>
+            <div class="tl-org">Stanford University</div>
+            <ul class="tl-bullets"><li>Graduate coursework in Foundation Models in Healthcare and Deep Reinforcement Learning.</li></ul>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-dates">2021</div>
+            <div class="tl-head"><div class="tl-logo" data-mono="UCLA"><img src="assets/logos/ucla.png" alt="UCLA" loading="lazy"></div><h3>B.S. Atmospheric &amp; Oceanic Science</h3></div>
+            <div class="tl-org">University of California, Los Angeles</div>
           </div>
         </div>
 
@@ -540,10 +614,17 @@ main { padding-top: var(--nav-h); }
           <div class="tl-section-head"><span class="eyebrow">Teaching &amp; mentorship</span></div>
           <div class="talks-list">
             <div class="talk reveal">
-              <div class="talk-when">UCSF</div>
+              <div class="talk-when">Winter 2026</div>
               <div>
-                <h3>Teaching Assistant — Data Science 226: Bayesian Methods &amp; Gaussian Processes</h3>
-                <p>University of California, San Francisco (UCSF).</p>
+                <h3>Teaching Assistant, Data Science 226: Bayesian Methods &amp; Gaussian Processes</h3>
+                <p>University of California, San Francisco (UCSF). R, Stan, JAGS.</p>
+              </div>
+            </div>
+            <div class="talk reveal">
+              <div class="talk-when">2025 - 2026</div>
+              <div>
+                <h3>Science Instructor, UCSF Science and Health Education Partnership (SEP)</h3>
+                <p>Taught computational modeling of epidemiology at a San Francisco public high school.</p>
               </div>
             </div>
           </div>
@@ -555,29 +636,11 @@ main { padding-top: var(--nav-h); }
 </section>
 </main>
 
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-base">
-      <span>© 2026 Hailemariam Teshome</span>
-      <span>Press <kbd style="font-family:var(--font-mono)">⌘K</kbd> to navigate</span>
-    </div>
-  </div>
-</footer>
+  <footer>
+    <span class="credit">Banner photo: <a href="https://unsplash.com/photos/aerial-photography-of-foggy-red-bridge-UznvSv-TjNg" target="_blank" rel="noopener">Riley on Unsplash</a></span>
+  </footer>
+</div>
 
-<script>
-  /* side-nav scroll spy */
-  const links = document.querySelectorAll('.xp-nav a');
-  const secs = [...links].map(a => document.querySelector(a.getAttribute('href')));
-  const spy = new IntersectionObserver((ents) => {
-    ents.forEach(e => {
-      if (e.isIntersecting) {
-        const id = '#' + e.target.id;
-        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
-      }
-    });
-  }, { rootMargin: '-20% 0px -70% 0px' });
-  secs.forEach(s => s && spy.observe(s));
-</script>
 <script>
 /* ============================================================
    Haile Teshome — site interactions
@@ -628,89 +691,7 @@ main { padding-top: var(--nav-h); }
   }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  /* ---------- Command palette ---------- */
-  const PAGES = [
-    { t: 'Home', d: 'Intro & news', u: 'index.html', g: 'Pages', ic: 'home' },
-    { t: 'Portfolio', d: 'Papers & projects', u: 'research.html', g: 'Pages', ic: 'doc' },
-    { t: 'Experience', d: 'Roles, talks & teaching', u: 'experience.html', g: 'Pages', ic: 'brief' },
-    { t: 'Contact', d: 'Get in touch', u: 'contact.html', g: 'Pages', ic: 'mail' },
-    { t: 'Email Haile', d: 'haile.teshome@ucsf.edu', u: 'mailto:haile.teshome@ucsf.edu', g: 'Connect', ic: 'mail' },
-    { t: 'LinkedIn', d: 'in/haile-teshome', u: 'https://www.linkedin.com/in/haile-teshome', g: 'Connect', ic: 'link' },
-    { t: 'Google Scholar', d: 'Publications', u: 'https://scholar.google.com/citations?user=9jtTCxYAAAAJ&hl=en', g: 'Connect', ic: 'doc' },
-    { t: 'Download Resume', d: '.pdf', u: 'Haile_Teshome_Resume.pdf', g: 'Connect', ic: 'down' },
-    { t: 'Toggle theme', d: 'Light / dark', u: '#theme', g: 'Actions', ic: 'sun' },
-  ];
-  const ICONS = {
-    home: '<path d="M3 10.5 12 3l9 7.5M5 9.5V21h14V9.5"/>',
-    flask: '<path d="M9 3h6M10 3v6.5L5 19a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 19l-5-9.5V3"/>',
-    doc: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9 13h6M9 17h6"/>',
-    brief: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
-    pen: '<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
-    mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
-    link: '<path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/>',
-    down: '<path d="M12 3v12M7 11l5 5 5-5M5 21h14"/>',
-    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
-  };
 
-  const cmdk = document.createElement('div');
-  cmdk.className = 'cmdk';
-  cmdk.innerHTML = `
-    <div class="cmdk-panel" role="dialog" aria-modal="true">
-      <div class="cmdk-search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
-        <input type="text" placeholder="Jump to a page, or search…" aria-label="Command search" />
-        <span class="esc">ESC</span>
-      </div>
-      <div class="cmdk-list"></div>
-    </div>`;
-  document.body.appendChild(cmdk);
-  const input = cmdk.querySelector('input');
-  const list = cmdk.querySelector('.cmdk-list');
-  let sel = 0, filtered = [];
-
-  function renderList() {
-    const q = input.value.trim().toLowerCase();
-    filtered = PAGES.filter(p => !q || (p.t + ' ' + p.d + ' ' + p.g).toLowerCase().includes(q));
-    if (sel >= filtered.length) sel = Math.max(0, filtered.length - 1);
-    if (!filtered.length) { list.innerHTML = '<div class="cmdk-empty">No matches</div>'; return; }
-    let html = '', lastG = '';
-    filtered.forEach((p, i) => {
-      if (p.g !== lastG) { html += `<div class="cmdk-group-label">${p.g}</div>`; lastG = p.g; }
-      html += `<div class="cmdk-item${i === sel ? ' sel' : ''}" data-i="${i}">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ICONS[p.ic] || ''}</svg></div>
-        <div class="t"><b>${p.t}</b><small>${p.d}</small></div>
-        <span class="go">↵</span>
-      </div>`;
-    });
-    list.innerHTML = html;
-  }
-  function exec(p) {
-    if (!p) return;
-    closeCmdk();
-    if (p.u === '#theme') { setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); return; }
-    if (p.u.startsWith('http') || p.u.startsWith('mailto') || p.u.endsWith('.pdf')) { window.open(p.u, p.u.startsWith('http') ? '_blank' : '_self'); return; }
-    window.location.href = p.u;
-  }
-  function openCmdk() { cmdk.classList.add('open'); input.value = ''; sel = 0; renderList(); setTimeout(() => input.focus(), 30); }
-  function closeCmdk() { cmdk.classList.remove('open'); }
-
-  input.addEventListener('input', () => { sel = 0; renderList(); });
-  list.addEventListener('mousemove', e => { const it = e.target.closest('.cmdk-item'); if (it) { sel = +it.dataset.i; renderList(); } });
-  list.addEventListener('click', e => { const it = e.target.closest('.cmdk-item'); if (it) exec(filtered[+it.dataset.i]); });
-  cmdk.addEventListener('click', e => { if (e.target === cmdk) closeCmdk(); });
-
-  document.addEventListener('keydown', e => {
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); cmdk.classList.contains('open') ? closeCmdk() : openCmdk(); return; }
-    if (!cmdk.classList.contains('open')) {
-      if (e.key === '/' && !/input|textarea/i.test(document.activeElement.tagName)) { e.preventDefault(); openCmdk(); }
-      return;
-    }
-    if (e.key === 'Escape') closeCmdk();
-    else if (e.key === 'ArrowDown') { e.preventDefault(); sel = Math.min(sel + 1, filtered.length - 1); renderList(); }
-    else if (e.key === 'ArrowUp') { e.preventDefault(); sel = Math.max(sel - 1, 0); renderList(); }
-    else if (e.key === 'Enter') { e.preventDefault(); exec(filtered[sel]); }
-  });
-  document.addEventListener('click', e => { if (e.target.closest('[data-cmdk-open]')) openCmdk(); });
 })();
 
 </script>
@@ -730,177 +711,14 @@ main { padding-top: var(--nav-h); }
   });
 })();
 </script>
+<script src="assets/js/fog.js" defer></script>
+<script src="assets/js/weather.js" defer></script>
 <script>
-/* Color theme — drives the CSS accent custom properties AND the hero-canvas
-   palette, tuned per light/dark. Selection persists in localStorage. */
-(function(){
-  const root=document.documentElement;
-  const ok=(l,c,h)=>'oklch('+l+' '+c+' '+h+')';
-  // pL/pC/pH = primary lightness(light-mode)/chroma/hue ; sC/sH = secondary chroma/hue ; two = two-tone
-  const THEMES={
-    warm:       {name:'Warm clay',     pL:0.605, pC:0.165, pH:42,  sC:0.075, sH:78 },
-    forest:     {name:'Forest',        pL:0.515, pC:0.090, pH:150, sC:0.050, sH:150},
-    oxblood:    {name:'Oxblood',       pL:0.495, pC:0.130, pH:27,  sC:0.070, sH:30 },
-    tealsand:   {name:'Teal + sand',   pL:0.550, pC:0.090, pH:188, sC:0.075, sH:80,  two:true},
-    navycopper: {name:'Navy + copper', pL:0.495, pC:0.120, pH:258, sC:0.105, sH:52,  two:true},
-    forestclay: {name:'Forest + clay', pL:0.510, pC:0.090, pH:150, sC:0.105, sH:45,  two:true},
-    petrol:     {name:'Petrol',        pL:0.520, pC:0.085, pH:205, sC:0.050, sH:205},
-    inkteal:    {name:'Ink & teal',    pL:0.530, pC:0.085, pH:192, sC:0.045, sH:220},
-    clinical:   {name:'Clinical blue', pL:0.520, pC:0.120, pH:252, sC:0.060, sH:252}
-  };
-  const ORDER=['warm','forest','oxblood','tealsand','navycopper','forestclay','petrol','inkteal','clinical'];
-
-  // 1x1 canvas resolves oklch() -> sRGB rgb[] reliably for the hero canvas
-  const pcan=document.createElement('canvas'); pcan.width=pcan.height=1;
-  const pctx=pcan.getContext('2d');
-  function toRGB(str){ pctx.fillStyle='#000'; pctx.fillStyle=str; pctx.fillRect(0,0,1,1); const d=pctx.getImageData(0,0,1,1).data; return [d[0],d[1],d[2]]; }
-
-  function cssVars(th,dark){
-    if(dark) return {
-      '--accent':      ok(0.74, th.pC*0.95, th.pH),
-      '--accent-h':    ok(0.80, th.pC*0.90, th.pH),
-      '--accent-soft': ok(0.33, 0.060,      th.pH),
-      '--accent-text': ok(0.80, th.pC*0.90, th.pH)
-    };
-    return {
-      '--accent':      ok(th.pL,        th.pC,      th.pH),
-      '--accent-h':    ok(th.pL-0.055,  th.pC*1.04, th.pH),
-      '--accent-soft': ok(0.93,         0.045,      th.pH),
-      '--accent-text': ok(th.pL-0.035,  th.pC,      th.pH)
-    };
-  }
-
-  let currentId='warm', current=THEMES.warm;
-  window.__heroAccent=function(dark){
-    const th=current;
-    return {
-      a: toRGB(ok(dark?0.70:0.55, th.pC,      th.pH)),
-      b: toRGB(ok(dark?0.66:0.60, th.sC,      th.sH)),
-      maxA: dark?0.50:0.40, dot: dark?0.55:0.50, line: dark?0.16:0.14
-    };
-  };
-
-  function apply(id){
-    currentId = THEMES[id] ? id : 'warm';
-    current = THEMES[currentId];
-    const dark = root.getAttribute('data-theme')==='dark';
-    const v = cssVars(current, dark);
-    for(const k in v) root.style.setProperty(k, v[k]);
-    try{ localStorage.setItem('ht-accent', currentId); }catch(e){}
-    if(window.__refreshHeroPal) window.__refreshHeroPal();
-  }
-  window.__setAccent = apply;
-  window.__getAccent = ()=>currentId;
-  window.__accentThemes = ()=>ORDER.map(id=>({ id, name:THEMES[id].name, two:!!THEMES[id].two,
-    primary: ok(THEMES[id].pL+0.02, THEMES[id].pC, THEMES[id].pH),
-    secondary: ok(0.62, THEMES[id].sC+0.02, THEMES[id].sH) }));
-
-  // re-tune accent when light/dark flips
-  new MutationObserver(()=>apply(currentId)).observe(root,{attributes:true,attributeFilter:['data-theme']});
-
-  let saved='warm'; try{ saved=localStorage.getItem('ht-accent')||'warm'; }catch(e){}
-  apply(THEMES[saved]?saved:'warm');
-})();
-</script>
-<script>
-/* Tweaks panel — choose the hero background. Hidden until Tweaks is toggled
-   from the toolbar. Selection persists in localStorage. */
-(function(){
-  const OPTIONS=[
-    {id:'neural', label:'Neural net', desc:'Synapses firing across the web'},
-    {id:'slime', label:'Slime trails', desc:'Branching vein networks'},
-    {id:'boids', label:'Flocking', desc:'A murmuration of dots'},
-    {id:'metaballs', label:'Metaballs', desc:'Merging liquid blobs'},
-    {id:'magnetic', label:'Magnetic field', desc:'Field lines around the cursor'},
-    {id:'ripple', label:'Ripple pond', desc:'Interfering click ripples'},
-    {id:'gravity', label:'Gravity well', desc:'Points orbit your cursor'},
-    {id:'halftone', label:'Halftone', desc:'Dot grid lit like a spotlight'},
-    {id:'ascii', label:'ASCII rain', desc:'Glyph grid, columns self-type'},
-    {id:'pixel', label:'Pixel sweep', desc:'LED matrix, light bars sweep'},
-    {id:'cross', label:'Plus grid', desc:'Swiss crosses tilt to cursor'},
-    {id:'aurora', label:'Aurora', desc:'Soft drifting light ribbons'},
-    {id:'harmonograph', label:'Harmonograph', desc:'Pendulum line art'},
-    {id:'contour', label:'Contours', desc:'A living topographic map'},
-    {id:'flow', label:'Flow field', desc:'Silky drifting streamlines'},
-    {id:'constellation', label:'Constellation', desc:'Linked drifting dots'},
-    {id:'orbs', label:'Soft orbs', desc:'Floating warm bokeh'},
-    {id:'mesh', label:'Elastic mesh', desc:'Springy interactive grid'},
-    {id:'minimal', label:'Minimal', desc:'Just a soft glow'}
-  ];
-  const style=document.createElement('style');
-  style.textContent=
-   '.tw-panel{position:fixed;right:18px;bottom:18px;z-index:200;width:266px;'+
-   'background:var(--bg);border:1px solid var(--border-2);border-radius:14px;'+
-   'box-shadow:var(--shadow-lg);font-family:var(--font-sans);color:var(--text);'+
-   'padding:14px 14px 13px;display:none;}'+
-   '.tw-panel.open{display:block;animation:twin .18s ease;}'+
-   '@keyframes twin{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}'+
-   '.tw-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;}'+
-   '.tw-title{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);}'+
-   '.tw-x{width:26px;height:26px;border-radius:7px;border:1px solid var(--border);background:var(--bg-2);color:var(--text-2);cursor:pointer;display:grid;place-items:center;font-size:12px;line-height:1;}'+
-   '.tw-x:hover{color:var(--text);border-color:var(--border-2);}'+
-   '.tw-label{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:9px;}'+
-   '.tw-opts{display:flex;flex-direction:column;gap:6px;max-height:min(58vh,470px);overflow-y:auto;margin:-2px -4px -2px 0;padding:2px 4px 2px 0;}'+
-   '.tw-opt{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:9px;border:1px solid var(--border);background:var(--bg-2);cursor:pointer;text-align:left;transition:border-color .18s,background .18s;}'+
-   '.tw-opt:hover{border-color:var(--border-2);}'+
-   '.tw-opt.sel{border-color:var(--accent);background:color-mix(in oklab,var(--accent) 9%,var(--bg-2));}'+
-   '.tw-dot{width:9px;height:9px;border-radius:50%;background:var(--border-2);flex:none;}'+
-   '.tw-opt.sel .tw-dot{background:var(--accent);}'+
-   '.tw-opt b{font-size:13.5px;font-weight:500;display:block;letter-spacing:-.01em;color:var(--text);}'+
-   '.tw-opt small{font-size:11.5px;color:var(--text-3);}'+
-   '.tw-themes{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:6px;}'+
-   '.tw-sw{width:30px;height:30px;border-radius:50%;border:1.5px solid color-mix(in oklab,var(--text) 18%,transparent);cursor:pointer;padding:0;transition:transform .15s;position:relative;}'+
-   '.tw-sw:hover{transform:scale(1.12);}'+
-   '.tw-sw.sel{outline:2px solid var(--text);outline-offset:2px;border-color:transparent;}'+
-   '.tw-themename{font-size:12px;color:var(--text-2);margin:2px 0 16px;min-height:15px;}';
-  document.head.appendChild(style);
-
-  const panel=document.createElement('div');
-  panel.className='tw-panel';
-  const hasHero = typeof window.__setHeroBg==='function';
-  panel.innerHTML='<div class="tw-head"><span class="tw-title">Tweaks</span>'+
-    '<button class="tw-x" aria-label="Close">\u2715</button></div>'+
-    '<div class="tw-label">Color theme</div><div class="tw-themes"></div><div class="tw-themename"></div>'+
-    (hasHero ? '<div class="tw-label">Hero background</div><div class="tw-opts"></div>' : '');
-  document.body.appendChild(panel);
-
-  // ---- color theme swatches ----
-  const themesWrap=panel.querySelector('.tw-themes');
-  const nameEl=panel.querySelector('.tw-themename');
-  const themes=(window.__accentThemes&&window.__accentThemes())||[];
-  const curTheme=(window.__getAccent&&window.__getAccent())||'warm';
-  themes.forEach(th=>{
-    const b=document.createElement('button');
-    b.className='tw-sw'+(th.id===curTheme?' sel':'');
-    b.type='button'; b.title=th.name; b.setAttribute('aria-label',th.name);
-    b.style.background = th.two
-      ? 'linear-gradient(135deg, '+th.primary+' 0 50%, '+th.secondary+' 50% 100%)'
-      : th.primary;
-    if(th.id===curTheme) nameEl.textContent=th.name+(th.two?'  ·  two-tone':'');
-    b.addEventListener('click',()=>{
-      themesWrap.querySelectorAll('.tw-sw').forEach(x=>x.classList.remove('sel'));
-      b.classList.add('sel'); nameEl.textContent=th.name+(th.two?'  ·  two-tone':'');
-      if(window.__setAccent) window.__setAccent(th.id);
-    });
-    themesWrap.appendChild(b);
+  document.querySelector('.theme-toggle').addEventListener('click', function () {
+    var t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    try { localStorage.setItem('ht-theme', t); } catch (e) {}
   });
-
-  const opts=panel.querySelector('.tw-opts');
-  if(hasHero && opts){
-    const current=(window.__getHeroBg&&window.__getHeroBg())||'flow';
-    OPTIONS.forEach(o=>{
-      const el=document.createElement('button');
-      el.className='tw-opt'+(o.id===current?' sel':'');
-      el.innerHTML='<span class="tw-dot"></span><span><b>'+o.label+'</b><small>'+o.desc+'</small></span>';
-      el.addEventListener('click',()=>{ opts.querySelectorAll('.tw-opt').forEach(x=>x.classList.remove('sel')); el.classList.add('sel'); if(window.__setHeroBg) window.__setHeroBg(o.id); });
-      opts.appendChild(el);
-    });
-  }
-
-  panel.querySelector('.tw-x').addEventListener('click',()=>{ panel.classList.remove('open'); window.parent.postMessage({type:'__edit_mode_dismissed'},'*'); });
-  window.addEventListener('message',e=>{ const ty=e&&e.data&&e.data.type; if(ty==='__activate_edit_mode')panel.classList.add('open'); else if(ty==='__deactivate_edit_mode')panel.classList.remove('open'); });
-  window.parent.postMessage({type:'__edit_mode_available'},'*');
-})();
 </script>
 </body>
 </html>

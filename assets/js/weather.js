@@ -40,9 +40,9 @@
     const cloud = cur.cloud_cover ?? 50;
     const foggy = code === 45 || code === 48 || vis < 4000 || (hum > 93 && cloud > 80);
 
-    // fog thickness: 0.35 (clear) … 1.6 (socked in)
+    // fog thickness: 0.9 (clear) … 1.6 (socked in); the floor keeps the drift visible on clear days
     const score = foggy ? 1 : clamp(0.45 * (1 - vis / 24000) + 0.3 * clamp((hum - 55) / 40, 0, 1) + 0.25 * cloud / 100, 0, 1);
-    fog.density = 0.35 + 1.25 * score;
+    fog.density = 0.9 + 0.7 * score;
     fog.speed = clamp(0.55 + (cur.wind_speed_10m ?? 6) / 12, 0.5, 2.2);
 
     // time of day in SF

@@ -3,9 +3,9 @@
    fixed coordinates are sent) and maps them to:
    - fog thickness  <- fog code, visibility, humidity, cloud cover
    - fog drift speed <- wind speed
-   - photo tint      <- night / golden hour from SF sunrise & sunset
+   - photo tint      <- golden hour / rain (day vs night follows the site theme)
    - a short live line: "San Francisco · 61°F · Foggy · 4:12 PM"
-   Preview any look with ?wx=fog | clear | night | golden | rain.
+   Preview any look with ?wx=fog | clear | golden | rain.
    On any failure the banner keeps its default look. */
 (function () {
   const side = document.querySelector('.side');
@@ -50,15 +50,14 @@
     const rise = new Date(w.daily.sunrise[0]), set = new Date(w.daily.sunset[0]);
     const near = (a, b) => Math.abs(a - b) < 50 * 60 * 1000;
     const golden = near(now, rise) || near(now, set);
-    const night = !cur.is_day && !golden;
     const wet = (code >= 51 && code <= 67) || (code >= 80 && code <= 82) || code >= 95;
     const html = document.documentElement;
-    ['wx-night', 'wx-golden', 'wx-wet'].forEach((c, i) => html.classList.toggle(c, [night, golden, wet][i]));
-    try { localStorage.setItem('ht-wx', JSON.stringify({ t: Date.now(), night, golden, wet, density: fog.density, speed: fog.speed, bright: night ? 0.62 : golden ? 0.98 : 1 })); } catch (e) {}
-    side.classList.toggle('wx-night', night);
+    html.classList.remove('wx-night'); side.classList.remove('wx-night');   // the theme toggle owns day / night
+    ['wx-golden', 'wx-wet'].forEach((c, i) => html.classList.toggle(c, [golden, wet][i]));
+    try { localStorage.setItem('ht-wx', JSON.stringify({ t: Date.now(), golden, wet, density: fog.density, speed: fog.speed, bright: golden ? 0.98 : 1 })); } catch (e) {}
     side.classList.toggle('wx-golden', golden);
     side.classList.toggle('wx-wet', wet);
-    fog.bright = night ? 0.62 : golden ? 0.98 : 1;
+    fog.bright = golden ? 0.98 : 1;
     if (fog.redraw) fog.redraw();
 
     if (line) {
@@ -72,7 +71,6 @@
   const PRESETS = {
     fog:    { temperature_2m: 57, relative_humidity_2m: 97, cloud_cover: 100, visibility: 900,   weather_code: 45, is_day: 1, wind_speed_10m: 12 },
     clear:  { temperature_2m: 72, relative_humidity_2m: 45, cloud_cover: 0,   visibility: 24000, weather_code: 0,  is_day: 1, wind_speed_10m: 4 },
-    night:  { temperature_2m: 52, relative_humidity_2m: 80, cloud_cover: 40,  visibility: 16000, weather_code: 1,  is_day: 0, wind_speed_10m: 5 },
     golden: { temperature_2m: 60, relative_humidity_2m: 75, cloud_cover: 30,  visibility: 18000, weather_code: 1,  is_day: 1, wind_speed_10m: 6, golden: true },
     rain:   { temperature_2m: 55, relative_humidity_2m: 92, cloud_cover: 100, visibility: 6000,  weather_code: 63, is_day: 1, wind_speed_10m: 15 },
   };

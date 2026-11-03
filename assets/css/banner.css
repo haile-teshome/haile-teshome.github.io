@@ -1,0 +1,46 @@
+/* ---------- side banner: follows the theme, blends into the page ---------- */
+/* Loaded after each page's own styles. fog.js sets --px / --py from the pointer. */
+
+/* the banner sits on the page colour, so its faded edge melts into the page */
+.side { background: var(--bg); transition: background-color .3s; }
+
+/* slight overscan so the pointer parallax never shows an edge.
+   Theme changes use the page's own .3s, so photo and page switch together. */
+.side-img {
+  transform: scale(1.05) translate3d(var(--px, 0px), var(--py, 0px), 0);
+  transition: filter .3s ease, transform .9s cubic-bezier(.2, .7, .2, 1);
+}
+/* the dusk gradient stays put and only fades, since gradients can't animate */
+.side-tint { transition: opacity .3s ease; mix-blend-mode: multiply;
+  background: linear-gradient(180deg, rgba(24,38,74,0.55) 0%, rgba(16,20,32,0.25) 60%, rgba(16,17,20,0.4) 100%); }
+
+/* light: soft daylight, a little cooler and paler to sit with the page's paper tone */
+/* every filter lists the same functions in the same order, so theme switches blend instead of snapping */
+html[data-theme="light"] .side .side-img { filter: brightness(1.05) saturate(0.88) contrast(0.97) sepia(0) hue-rotate(0deg); }
+html[data-theme="light"] .side .side-tint { opacity: 0; }
+html[data-theme="light"].wx-golden .side .side-img { filter: brightness(1.04) saturate(1.05) contrast(1) sepia(0.18) hue-rotate(0deg); }
+html[data-theme="light"].wx-wet .side .side-img { filter: brightness(0.92) saturate(0.7) contrast(1.02) sepia(0) hue-rotate(0deg); }
+
+/* dark: the same view at dusk, blue hour over the bay */
+html[data-theme="dark"] .side .side-img { filter: brightness(0.56) saturate(0.7) contrast(1.1) sepia(0) hue-rotate(-8deg); }
+html[data-theme="dark"] .side .side-tint { opacity: 1; mix-blend-mode: multiply;
+  background: linear-gradient(180deg, rgba(24,38,74,0.55) 0%, rgba(16,20,32,0.25) 60%, rgba(16,17,20,0.4) 100%); }
+
+/* fade the right edge into the page instead of a hard seam */
+.side-img, .side-fog, .side-tint, .side::after {
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 64px), transparent);
+          mask-image: linear-gradient(90deg, #000 calc(100% - 64px), transparent);
+}
+
+/* stacked layout: the banner is a header, so fade its foot into the page instead */
+@media (max-width: 900px) {
+  .side-img, .side-fog, .side-tint, .side::after {
+    -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 48px), transparent);
+            mask-image: linear-gradient(180deg, #000 calc(100% - 48px), transparent);
+  }
+  .side-inner { padding-bottom: 56px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .side-img { transform: scale(1.05); transition: filter .3s ease; }
+}

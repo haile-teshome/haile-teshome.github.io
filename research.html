@@ -538,9 +538,9 @@ main { padding-top: var(--nav-h); }
     <div class="pub-list" id="pubList">
 
       <!-- PROJECT: Who Gets the Second Opinion? (ML4H 2026 Proceedings) -->
-      <article class="pub reveal" id="second-opinion" data-year="2026" data-type="research" data-sortyear="2026.95" data-abstract="Selective prediction, in which a model abstains when uncertain, is widely proposed as a safety mechanism for clinical machine learning, but it is not well understood whether its benefits are shared equally across demographic groups. We evaluate five systems (zero-shot vision-language models and a supervised classifier) for chest radiograph finding classification on 117,926 patient-finding pairs from 17,318 patients, with external replication at a second institution, and measure how abstention changes demographic gaps in selective risk. Abstention does not uniformly widen these gaps; it redistributes them. At the prespecified 20% coverage, gaps widen for two systems and narrow for three, the direction flips with coverage for several systems, and it cannot be predicted from aggregate performance. Against a null in which abstention is random, gaps change beyond chance in 18 of 25 system-attribute combinations, but in only 1 of 5 for sex. Redistribution is not specific to zero-shot models: the supervised classifier, which has the highest failure-prediction AUROC in the study, shows the largest effect. A counterfactual that holds predictions fixed and changes only the confidence ranking shows that the ranking causally drives redistribution in some systems but not all. Theoretically, we show that even a correctness oracle applied at a common coverage c leaves group g with selective risk max(0, 1 &minus; a_g/c), so unequal group accuracies produce unequal residual risk even under perfect error identification. Under the same oracle, equalizing selective risk across groups (risk parity) costs nothing in aggregate utility and requires only reallocating coverage in proportion to group accuracy, subject to a feasibility condition that two of the five systems violate at 90% coverage. Because accuracy-optimal selective prediction is indifferent among coverage allocations with very different demographic risk profiles, the allocation a deployed system ends up with should be measured and reported, not left implicit.">
+      <article class="pub reveal" id="second-opinion" data-year="2026" data-type="research" data-sortyear="2026.95" data-abstract="Selective prediction, in which a model abstains when uncertain by withholding its answer and referring the case to a clinician, is widely proposed as a clinical safety mechanism on the assumption that it helps every patient group. We show that it instead redistributes demographic risk across groups rather than uniformly magnifying it. We study four chest-radiograph systems (three vision&#8211;language models and a supervised classifier) on 117,926 patient&#8211;finding evaluations from 17,318 patients, with external evaluation at a second institution. Gaps in selective risk widen for some systems and narrow for others, exceeding a random-score null in 15 of 20 system&#8211;attribute pairs. Under a single group-blind threshold, race groups can receive coverages ten points apart while their selective risks are nearly equal. Redistribution is robust to the label source and confidence read-out, but its direction depends on the deployed configuration and population. Reordering confidence with predictions held fixed shows that the ranking alone suffices to change the gap for one system. For a correctness oracle at equal within-group coverage, a gap set by group accuracies remains; reallocating coverage in proportion to group accuracy equalises selective risk without increasing aggregate oracle risk, but only within a feasibility region. Because equal selective risk, residual error burden and access to human review are distinct objectives, abstention should be audited by subgroup at deployment and re-audited when the deployment changes.">
         <a class="pub-card" href="#second-opinion">
-          <div class="pub-thumb"><img src="assets/figures/ml4h-second-opinion.jpg" alt="Schematic of selective prediction: two demographic groups with different abstention and residual error patterns" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+          <div class="pub-thumb"><img src="assets/figures/ml4h-second-opinion.jpg?v=2" alt="Figure 1: one confidence threshold answers 8 of 12 cases for group A but 3 of 12 for group B, shifting the risk gap" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
           <div class="pub-body">
             <div class="pub-year">2026</div>
             <div class="pub-main">
@@ -725,7 +725,7 @@ Conclusions: Evidence linking postdiagnostic intake of red meat, poultry, and eg
   /* Each project groups its journal / conference / preprint outputs */
   const PROJECTS = {
     'second-opinion': [
-      { type: 'Conference', venue: 'Machine Learning for Health (ML4H) 2026, Proceedings track (PMLR)', year: 2026 },
+      { type: 'Conference', venue: 'Machine Learning for Health (ML4H) 2026, PMLR vol. 346', year: 2026 },
       { type: 'Code', venue: 'equitable-abstention on GitHub', year: 2026, url: 'https://github.com/haile-teshome/equitable-abstention' },
     ],
     'radoncreason': [
@@ -790,7 +790,10 @@ Conclusions: Evidence linking postdiagnostic intake of red meat, poultry, and eg
   /* ---------- Publication preview modal ---------- */
   /* Extra screenshots shown as a carousel in the preview modal */
   const GALLERIES = {
-    'second-opinion': ['assets/figures/ml4h-second-opinion.jpg'],
+    'second-opinion': [
+      'assets/figures/ml4h-second-opinion.jpg?v=2', 'assets/figures/gallery/ml4h-fig2-risk-gap.jpg',
+      'assets/figures/gallery/ml4h-fig5-oracle.jpg', 'assets/figures/gallery/ml4h-fig6-reallocation.jpg',
+    ],
     'radoncreason': ['assets/figures/radoncreason-poster.jpg'],
     'evidence-engine': [
       'assets/figures/evidence-engine.jpg', 'assets/figures/colm-poster.jpg',

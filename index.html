@@ -350,6 +350,12 @@ html:not(.wx-ready) .side-img, html:not(.wx-ready) .side-tint { transition: none
   /* match the Portfolio: no white frames, posters show from the title down */
   .card .fig { background: var(--card); }
   .card .fig img[src*="poster"] { object-position: 50% 0; }
+  /* keep the footer pinned to the bottom of the window on short pages */
+  @media (min-width: 641px) {
+    .page { display: flex; flex-direction: column; min-height: 100vh; box-sizing: border-box; }
+    .page > footer { margin-top: auto; }
+    .page > :not(footer):nth-last-child(2) { margin-bottom: 24px; }
+  }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/banner.css?v=4" />
@@ -401,6 +407,7 @@ html:not(.wx-ready) .side-img, html:not(.wx-ready) .side-tint { transition: none
   <section>
     <h2>Latest news</h2>
     <ul class="news">
+      <li><span class="d">Oct 2026</span><span class="t">"Who Gets the Second Opinion? Selective Prediction Redistributes Demographic Risk in Medical AI" accepted to the ML4H 2026 Proceedings track.</span></li>
       <li><span class="d">Oct 2026</span><span class="t">Presented Evidence Engine, our open-source platform for LLM-assisted systematic reviews, at the Language Models for Science (LM4Sci) workshop at COLM 2026.</span></li>
       <li><span class="d">Oct 2026</span><span class="t">Retrieval-augmented verification of chest X-ray radiology reports with an LLM judge accepted at the GenAI for Health workshop, NeurIPS 2026.</span></li>
       <li><span class="d">Aug 2026</span><span class="t">Our systematic review of postdiagnostic red meat, poultry, and egg intake and prostate cancer outcomes was published in The Journal of Urology.</span></li>
@@ -412,6 +419,12 @@ html:not(.wx-ready) .side-img, html:not(.wx-ready) .side-tint { transition: none
   <section>
     <h2>Selected research</h2>
     <div class="cards">
+      <a class="card" href="research.html#second-opinion">
+        <div class="fig"><img src="assets/figures/ml4h-second-opinion.jpg" alt="Schematic of selective prediction: two demographic groups with different abstention and residual error patterns" loading="lazy"></div>
+        <div class="v">2026 · ML4H · PMLR</div>
+        <h3>Who Gets the Second Opinion? Selective Prediction Redistributes Demographic Risk in Medical AI</h3>
+        <div class="a"><b>Teshome H</b></div>
+      </a>
       <a class="card" href="research.html#radoncreason">
         <div class="fig"><img src="assets/figures/radoncreason-poster.jpg" alt="RadOncReason poster: reinforcement learning with verifiable rewards for prostate cancer treatment planning" loading="lazy"></div>
         <div class="v">2026 · Poster · Manuscript in prep</div>
@@ -429,12 +442,6 @@ html:not(.wx-ready) .side-img, html:not(.wx-ready) .side-tint { transition: none
         <div class="v">2026 · J Urol</div>
         <h3>Postdiagnostic Red Meat, Poultry, and Egg Intake and Risk of Prostate Cancer Progression and Mortality: A Systematic Review</h3>
         <div class="a">Sandhu S, <b>Teshome H</b>, Van Blarigan EL, Chan JM, Kenfield SA, Graff RE</div>
-      </a>
-      <a class="card" href="https://doi.org/10.1021/acsnano.9b08151" target="_blank" rel="noopener">
-        <div class="fig"><img src="assets/figures/paper-assay.jpg?v=2" alt="Graphical abstract: multiplexed paper-based immunoassay with machine-learning classification for Lyme disease" loading="lazy"></div>
-        <div class="v">2020 · ACS Nano</div>
-        <h3>Early-Stage Lyme Disease Diagnosis with a Multiplexed Paper-Based Assay &amp; Machine Learning</h3>
-        <div class="a">Joung HA, Ballard ZS, Wu J, Tseng DK, <b>Teshome H</b>, Zhang L, Horn EJ, Arnaboldi PM, Dattwyler RJ, Garner OB, Di Carlo D, Ozcan A</div>
       </a>
     </div>
     <div class="more"><a href="research.html">All publications and projects →</a></div>

@@ -326,3 +326,10 @@ html:not(.wx-ready) .side-img, html:not(.wx-ready) .side-tint { transition: none
 .page > main .section { padding-bottom: 12px; }
 footer { padding: 14px 0 18px; margin-top: 24px; }
 @media (max-width: 640px) { .page { padding-top: 14px; } }
+
+/* keep the footer pinned to the bottom of the window on short pages */
+@media (min-width: 641px) {
+  .page { display: flex; flex-direction: column; min-height: 100vh; box-sizing: border-box; }
+  .page > footer { margin-top: auto; }
+  .page > :not(footer):nth-last-child(2) { margin-bottom: 24px; }
+}

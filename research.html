@@ -480,7 +480,7 @@ main { padding-top: var(--nav-h); }
     } catch (e) {}
   })();
 </script>
-<link rel="stylesheet" href="assets/css/shell.css?v=4" />
+<link rel="stylesheet" href="assets/css/shell.css?v=5" />
 <style>
   /* award line inside a card, marked like a highlighter instead of a corner ribbon */
   .pub-award { font-size: 14.5px; color: var(--text-2); margin: 0 0 8px; }
@@ -536,6 +536,24 @@ main { padding-top: var(--nav-h); }
     </div>
 
     <div class="pub-list" id="pubList">
+
+      <!-- PROJECT: Who Gets the Second Opinion? (ML4H 2026 Proceedings) -->
+      <article class="pub reveal" id="second-opinion" data-year="2026" data-type="research" data-sortyear="2026.95" data-abstract="Selective prediction, in which a model abstains when uncertain, is widely proposed as a safety mechanism for clinical machine learning, but it is not well understood whether its benefits are shared equally across demographic groups. We evaluate five systems (zero-shot vision-language models and a supervised classifier) for chest radiograph finding classification on 117,926 patient-finding pairs from 17,318 patients, with external replication at a second institution, and measure how abstention changes demographic gaps in selective risk. Abstention does not uniformly widen these gaps; it redistributes them. At the prespecified 20% coverage, gaps widen for two systems and narrow for three, the direction flips with coverage for several systems, and it cannot be predicted from aggregate performance. Against a null in which abstention is random, gaps change beyond chance in 18 of 25 system-attribute combinations, but in only 1 of 5 for sex. Redistribution is not specific to zero-shot models: the supervised classifier, which has the highest failure-prediction AUROC in the study, shows the largest effect. A counterfactual that holds predictions fixed and changes only the confidence ranking shows that the ranking causally drives redistribution in some systems but not all. Theoretically, we show that even a correctness oracle applied at a common coverage c leaves group g with selective risk max(0, 1 &minus; a_g/c), so unequal group accuracies produce unequal residual risk even under perfect error identification. Under the same oracle, equalizing selective risk across groups (risk parity) costs nothing in aggregate utility and requires only reallocating coverage in proportion to group accuracy, subject to a feasibility condition that two of the five systems violate at 90% coverage. Because accuracy-optimal selective prediction is indifferent among coverage allocations with very different demographic risk profiles, the allocation a deployed system ends up with should be measured and reported, not left implicit.">
+        <a class="pub-card" href="#second-opinion">
+          <div class="pub-thumb"><img src="assets/figures/ml4h-second-opinion.jpg" alt="Schematic of selective prediction: two demographic groups with different abstention and residual error patterns" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+          <div class="pub-body">
+            <div class="pub-year">2026</div>
+            <div class="pub-main">
+              <h3>Who Gets the Second Opinion? Selective Prediction Redistributes Demographic Risk in Medical AI</h3>
+              <div class="pub-authors"><span class="me">Teshome H</span></div>
+              <div class="pub-meta-row">
+                <span class="pub-pill">ML4H 2026</span>
+                <span class="pub-pill">PMLR</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </article>
 
       <!-- PROJECT: RadOncReason (RL with verifiable rewards) -->
       <article class="pub reveal" id="radoncreason" data-year="2026" data-type="research" data-sortyear="2026.85" data-abstract="LLM treatment recommendations that conflict with national guidelines are a key safety concern for AI decision support in cancer care. RadOncReason asks whether reinforcement learning against a verifiable, guideline-grounded reward can make these recommendations safe, guideline-concordant, and verifiable. We post-trained Qwen2.5-7B to propose prostate cancer treatment plans, scoring each plan with an automated verifier that encodes NCCN risk stratification, treatment modality, and per-risk-group dose, fractionation, and therapy ranges, and compared three RL algorithms and several reward definitions, including process rewards and a learned reward model. Performance was driven largely by reward definition rather than algorithm: without an explicit risk constraint, models systematically over-treated low- and intermediate-risk patients, while encoding the clinical risk constraint in the verifier produced fully guideline-concordant plans (0.970 to 1.000; +0.030, 95% CI [+0.015, +0.048]), which neither a larger unconstrained model nor alternative algorithms matched. The models&#39; stated reasoning often did not drive their recommendations, suggesting clinical use should rely on independently verified recommendations rather than model explanations. The framework generalized to a ten-site pan-cancer cohort of 5,267 patients (concordance 0.997).">
@@ -593,19 +611,6 @@ Conclusions: Evidence linking postdiagnostic intake of red meat, poultry, and eg
         </a>
       </article>
 
-      <!-- PROJECT: Benefit Borough -->
-      <article class="pub reveal" id="benefit-borough" data-year="2026" data-type="applications projects" data-sortyear="2026.9" data-abstract="More than $100B a year in earned benefits goes unclaimed. Benefit Borough, built at Cal Hacks 13.0, is a multiplayer pixel-art farming town where each benefit you are about to lose grows as a crop with its deadline ticking. Ruth, the town's AI reviewer, looks up your employer's, insurer's, and school's published benefits with a cited source for every fact, drafts your claims with receipts attached, and checks each one against the plan's own rules. In the Benefit Bazaar, shopkeeper agents search live listings for the best item an unspent benefit covers. Nothing is sent or bought without your approval. Built with Next.js, Claude, SpacetimeDB, Convex, and three.js.">
-        <a class="pub-card" href="#benefit-borough">
-          <div class="pub-thumb"><img src="assets/figures/benefit-borough.jpg" alt="Benefit Borough — AI agents that find and claim your unclaimed benefits" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
-          <div class="pub-body">
-            <div class="pub-year">2026 <small>· CalHacks 13.0</small></div>
-            <div class="pub-main">
-              <h3>Benefit Borough</h3>
-              <div class="pub-authors">A multiplayer pixel-art farming town where every benefit you are about to lose grows as a crop, and AI agents find the money, fill out your claims, and shop your perks. Nothing is sent or bought without your approval.</div>
-            </div>
-          </div>
-        </a>
-      </article>
 
       <!-- PROJECT: Lyme diagnostic (journal + conference) -->
       <article class="pub reveal" id="lyme-dx" data-year="2020" data-type="research" data-sortyear="2020.2" data-abstract="Standard two-tier serology for Lyme disease is under 50% sensitive in early-stage infection, costs over $400, and takes more than a day. This work presents a rapid, low-cost point-of-care alternative: a paper-based multiplexed vertical flow assay (xVFA) that measures antibodies against seven Borrelia antigens and a synthetic peptide on a single sensing membrane, imaged by a mobile-phone reader. A deep neural network computationally selects the most informative antigen subset and infers the diagnosis. In fully-blinded testing across 96 serum samples it achieved an AUC of 0.950 with 90.5% sensitivity and 87.0% specificity; with batch-specific standardization and threshold tuning, specificity rose to 96.3% (AUC 0.963). Each test costs about $0.42 and runs in 15 minutes.">
@@ -629,7 +634,7 @@ Conclusions: Evidence linking postdiagnostic intake of red meat, poultry, and eg
       <!-- PROJECT: Vertical flow assay platform (journal) -->
       <article class="pub reveal" id="vfa-platform" data-year="2019" data-type="research" data-sortyear="2019" data-abstract="A multiplexed point-of-care immunoassay built by vertically stacking functional paper layers (xVFA), where gold-nanoparticle colorimetric signals are captured on a spatially-multiplexed sensing membrane patterned with distinct antigens. A vertical flow diffuser and an asymmetric spreading membrane were engineered to make flow uniform across the membrane, cutting signal variation from 94% to about 13%. The assay completes in roughly 20 minutes, is read by a low-cost mobile-phone reader with server-side image analysis, and was demonstrated by quantifying Lyme-specific antibodies (anti-OspC, anti-BmpA, anti-P41) in human sera — establishing the scalable xVFA platform at about 27¢ per test.">
         <a class="pub-card" href="https://doi.org/10.1039/c9lc00011a" target="_blank" rel="noopener">
-          <div class="pub-thumb"><img src="assets/figures/vfa-device.jpg?v=2" alt="Paper-based multiplexed vertical flow assay cassettes with a portable mobile-phone reader" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+          <div class="pub-thumb"><img src="assets/figures/vfa-device.jpg?v=3" alt="Paper-based multiplexed vertical flow assay cassettes with a portable mobile-phone reader" loading="lazy"><span class="pub-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
           <div class="pub-body">
             <div class="pub-year">2019</div>
             <div class="pub-main">
@@ -719,6 +724,10 @@ Conclusions: Evidence linking postdiagnostic intake of red meat, poultry, and eg
 
   /* Each project groups its journal / conference / preprint outputs */
   const PROJECTS = {
+    'second-opinion': [
+      { type: 'Conference', venue: 'Machine Learning for Health (ML4H) 2026, Proceedings track (PMLR)', year: 2026 },
+      { type: 'Code', venue: 'equitable-abstention on GitHub', year: 2026, url: 'https://github.com/haile-teshome/equitable-abstention' },
+    ],
     'radoncreason': [
       { type: 'Poster', venue: '2026 Scientific Retreat, UCSF Prostate Cancer Program', year: 2026 },
     ],
@@ -781,21 +790,14 @@ Conclusions: Evidence linking postdiagnostic intake of red meat, poultry, and eg
   /* ---------- Publication preview modal ---------- */
   /* Extra screenshots shown as a carousel in the preview modal */
   const GALLERIES = {
+    'second-opinion': ['assets/figures/ml4h-second-opinion.jpg'],
     'radoncreason': ['assets/figures/radoncreason-poster.jpg'],
     'evidence-engine': [
       'assets/figures/evidence-engine.jpg', 'assets/figures/colm-poster.jpg',
       'assets/figures/gallery/evidence-engine-comparison.jpg',
     ],
-    'benefit-borough': [
-      'assets/figures/gallery/benefit-borough-trailer.mp4', 'assets/figures/benefit-borough.jpg',
-      'assets/figures/gallery/bb-02-create-farmer.jpg', 'assets/figures/gallery/bb-03-ruth-findings.jpg',
-      'assets/figures/gallery/bb-04-farm.jpg', 'assets/figures/gallery/bb-05-ruth-approved.jpg',
-      'assets/figures/gallery/bb-06-claim-form.jpg', 'assets/figures/gallery/bb-07-bazaar-results.jpg',
-      'assets/figures/gallery/bb-08-catch.jpg', 'assets/figures/gallery/bb-09-balloons-pop.jpg',
-      'assets/figures/gallery/bb-10-bugs-aim.jpg', 'assets/figures/gallery/benefit-borough-system.jpg',
-    ],
     'lyme-dx': ['assets/figures/paper-assay.jpg?v=2', 'assets/figures/gallery/lyme-poster.jpg'],
-    'vfa-platform': ['assets/figures/vfa-device.jpg?v=2', 'assets/figures/gallery/vfa-layers.jpg'],
+    'vfa-platform': ['assets/figures/vfa-device.jpg?v=3', 'assets/figures/gallery/vfa-layers.jpg'],
     'mify': [
       'assets/figures/gallery/mify-1.jpg', 'assets/figures/gallery/mify-2.jpg',
       'assets/figures/gallery/mify-3.jpg', 'assets/figures/gallery/mify-4.jpg',
